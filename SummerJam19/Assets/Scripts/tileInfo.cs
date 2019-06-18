@@ -6,6 +6,9 @@ public class tileInfo : MonoBehaviour
 {
     public Vector3 position;
 
+    public int Xpos;
+    public int Ypos;
+
     tileScript TS;
 
     public enum tileType {Empty, Vine, Flower};
@@ -17,6 +20,8 @@ public class tileInfo : MonoBehaviour
     private void Start()
     {
        TS = GameObject.Find("TileManager").GetComponent<tileScript>();
+        Xpos = Mathf.RoundToInt(position.x);
+        Ypos = Mathf.RoundToInt(position.y);
         //crntType = tileType.Empty;
     }
 
@@ -37,9 +42,10 @@ public class tileInfo : MonoBehaviour
             foreach (Transform t in children) {
                 Destroy(t.gameObject);
             }
-        }*/
+        }
 
         //create the new children according to tileType
-        Instantiate(TS.flowerBall, position, Quaternion.identity, this.transform);
+        Instantiate(TS.flowerBall, position, Quaternion.identity, this.transform);*/
     }
+
 }

@@ -35,9 +35,30 @@ public class cameraScript : MonoBehaviour
                 selectY = Mathf.RoundToInt(worldPosition.z);
 
                 Debug.DrawLine(Camera.main.transform.position, worldPosition);
-                Debug.LogFormat("Clicked Positions: {0} | {1}", selectX, selectY);
+                //Debug.LogFormat("Clicked Positions: {0} | {1}", selectX, selectY);
 
                 TS.selectTile(selectX, selectY);
+            }
+        }
+
+        if (Input.GetMouseButton(1))
+        {
+
+
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+
+            float distance;
+            if (groundPlane.Raycast(ray, out distance))
+            {
+
+                Vector3 worldPosition = ray.GetPoint(distance);
+                selectX = Mathf.RoundToInt(worldPosition.x);
+                selectY = Mathf.RoundToInt(worldPosition.z);
+
+                Debug.DrawLine(Camera.main.transform.position, worldPosition);
+                //Debug.LogFormat("Clicked Positions: {0} | {1}", selectX, selectY);
+
+                TS.placeVine(selectX, selectY);
             }
         }
     }
