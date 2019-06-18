@@ -24,6 +24,7 @@ public class tileInfo : MonoBehaviour
     {
         if (crntType != oldType) {
             updateTileType(crntType);
+            oldType = crntType;
         }
     }
 
