@@ -12,6 +12,8 @@ public class tileScript : MonoBehaviour
 
     public tileInfo selectedTile;
 
+    public GameObject flowerBall;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -26,22 +28,35 @@ public class tileScript : MonoBehaviour
                 tileEmpty.transform.name = pos.ToString();
                 tiles[x, y] = tileEmpty.GetComponent<tileInfo>();
                 tiles[x, y].position = pos;
+               
             }
 
         }
-        
+
+        tiles[3, 3].crntType = tileInfo.tileType.Flower;
 
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        if (Input.GetKeyDown(KeyCode.Space)) {
+            changeTileType();
+        }
     }
 
     public void selectTile(int x, int y) {
 
         selectedTile = tiles[x, y];
-        Debug.Log("selected tile = " + selectedTile.position.ToString());
+        //Debug.Log("selected tile = " + selectedTile.position.ToString());
+        Debug.Log("tile type = " + selectedTile.crntType);
+    }
+
+    public void changeTileType() {
+
+        if (selectedTile != null)
+        {
+            selectedTile.crntType = tileInfo.tileType.Flower;
+        }
     }
 }
