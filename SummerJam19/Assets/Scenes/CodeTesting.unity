@@ -289,13 +289,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 39671707}
-  m_LocalRotation: {x: 0.3925338, y: -0, z: -0, w: 0.91973764}
-  m_LocalPosition: {x: 4.09, y: 10.26, z: -7.08}
+  m_LocalRotation: {x: 0.56846267, y: -0, z: -0, w: 0.822709}
+  m_LocalPosition: {x: 13.8, y: 25, z: 1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 46.225002, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 69.286, y: 0, z: 0}
 --- !u!114 &39671711
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1679,7 +1679,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 350650700}
-  m_Enabled: 0
+  m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -1725,8 +1725,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 350650700}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 4.5, y: 0, z: 4.5}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 6.26, y: 0, z: 4.5}
+  m_LocalScale: {x: 200, y: 200, z: 200}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 5
@@ -6325,7 +6325,7 @@ Transform:
   m_GameObject: {fileID: 1510922878}
   m_LocalRotation: {x: 0.40821788, y: -0.23456968, z: 0.10938163, w: 0.8754261}
   m_LocalPosition: {x: -1.902, y: 6.192, z: 3.294}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1, y: 0.95, z: 0.5}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 1
@@ -8945,6 +8945,10 @@ MonoBehaviour:
   tileGO: {fileID: 6011683480070500747, guid: 907fd1dc31571fd4697b3fe8536926de, type: 3}
   selectedTile: {fileID: 0}
   flowerBall: {fileID: 1420619518716470130, guid: 6596914b5e987fa43862f09f9432c811,
+    type: 3}
+  straightVine: {fileID: -927199367670048503, guid: 8d3b4903a13b6b5498a6bb68340a2d54,
+    type: 3}
+  diagVine: {fileID: 1670480370360696040, guid: 6cc62d971b85bd342958e634381e72e9,
     type: 3}
   selectionPlane: {fileID: 3009144156060158897, guid: a5a550bd5421c754f97a558b4e8f5442,
     type: 3}

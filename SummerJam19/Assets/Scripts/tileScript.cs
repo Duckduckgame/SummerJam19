@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class tileScript : MonoBehaviour
 {
-    int mapSizeX = 10;
-    int mapSizeY = 10;
+    int mapSizeX = 50;
+    int mapSizeY = 50;
 
     public GameObject tileGO;
     public tileInfo[,] tiles;
@@ -45,8 +45,8 @@ public class tileScript : MonoBehaviour
 
         }
 
-        tiles[3, 3].crntType = tileInfo.tileType.Vine;
-
+        tiles[15, 15].crntType = tileInfo.tileType.Vine;
+        Instantiate(flowerBall, tiles[15, 15].position, Quaternion.identity);
     }
 
     // Update is called once per frame
@@ -61,9 +61,9 @@ public class tileScript : MonoBehaviour
     public void selectTile(int x, int y) {
 
         if (selectedTile == null) {
-            selectionPlane = Instantiate(selectionPlane, new Vector3(x, 0.2f, y), Quaternion.identity, this.transform);
+            selectionPlane = Instantiate(selectionPlane, new Vector3(x, 0.01f, y), Quaternion.identity, this.transform);
         }
-        selectionPlane.transform.position = new Vector3(x, 0.2f, y);
+        selectionPlane.transform.position = new Vector3(x, 0.01f, y);
         selectedTile = tiles[x, y];
 
 
@@ -82,47 +82,58 @@ public class tileScript : MonoBehaviour
 
     public void placeVine(int x, int y) {
         tileInfo target = tiles[x, y];
+        
         if (checkVineViability(x, y) == true) {
 
-            tileInfo from = vineDirection(x, y);
+            List<tileInfo> from = vineDirection(x, y);
 
-            growthDirection chosenDir = findGrowthDirection(from, target);
+            foreach (tileInfo TI in from)
+            {
+                growthDirection chosenDir = findGrowthDirection(TI, target);
+
+                int vineRot = vineRotation(chosenDir);
+
+                Instantiate(straightVine, target.position, Quaternion.Euler(0, vineRot, 0), target.transform);
+                target.crntType = tileInfo.tileType.Vine;
+            }
+
+           /* growthDirection chosenDir = findGrowthDirection(from, target);
 
             int vineRot = vineRotation(chosenDir);
 
-            Instantiate(straightVine, from.position, Quaternion.Euler(0, vineRot, 0), target.transform);
-            target.crntType = tileInfo.tileType.Vine;
+            Instantiate(straightVine, target.position, Quaternion.Euler(0, vineRot, 0), target.transform);
+            target.crntType = tileInfo.tileType.Vine;*/
         }
     }
 
     public growthDirection findGrowthDirection(tileInfo from, tileInfo to) {
         int fromX = Mathf.RoundToInt(from.position.x);
-        int fromY = Mathf.RoundToInt(from.position.y);
+        int fromY = Mathf.RoundToInt(from.position.z);
 
         int toX = Mathf.RoundToInt(to.position.x);
-        int toY = Mathf.RoundToInt(to.position.y);
+        int toY = Mathf.RoundToInt(to.position.z);
 
         //is above
         if (toY > fromY) {
             
             //if (toX > fromX) { return growthDirection.upRight; }
-            if (toX == fromX) { return growthDirection.up; }
+            if (toX == fromX) { return growthDirection.down; }
            // if (toX < fromX) { return growthDirection.upLeft;  }
         }
         //is same level
         if (toY == fromY) {
-            if (toX > fromX) { return growthDirection.right; }
+            if (toX > fromX) { return growthDirection.left; }
             if (toX == fromX) { Debug.LogError("tile 'from' is same as 'to'"); }
-            if (toX < fromX) { return growthDirection.left; }
+            if (toX < fromX) { return growthDirection.right; }
         }
         //is below
         if (toY < fromY) {
            // if (toX > fromX) { return growthDirection.downRight; }
-            if (toX == fromX) { return growthDirection.down; }
+            if (toX == fromX) { return growthDirection.up; }
            // if (toX < fromX) { return growthDirection.downLeft; }
         }
         Debug.LogError("no growth direction found");
-        return growthDirection.up;
+        return growthDirection.down;
     }
 
     int vineRotation(growthDirection dir)
@@ -146,15 +157,19 @@ public class tileScript : MonoBehaviour
 
     bool checkVineViability(int x, int y) {
         if (tiles[x, y].crntType == tileInfo.tileType.Vine || tiles[x, y].crntType == tileInfo.tileType.Flower)
+        {
+            Debug.Log("Tile not Valid");
             return false;
+        }
         if (tiles[x + 1, y].crntType == tileInfo.tileType.Vine || tiles[x - 1, y].crntType == tileInfo.tileType.Vine || tiles[x, y + 1].crntType == tileInfo.tileType.Vine || tiles[x, y - 1].crntType == tileInfo.tileType.Vine/* || tiles[x + 1, y + 1].crntType == tileInfo.tileType.Vine || tiles[x - 1, y - 1].crntType == tileInfo.tileType.Vine || tiles[x + 1, y - 1].crntType == tileInfo.tileType.Vine || tiles[x - 1, y + 1].crntType == tileInfo.tileType.Vine*/) {
             return true;
         }
+        Debug.Log("Tile not Valid");
         return false;
     }
 
-    tileInfo vineDirection(int x, int y) {
-        tileInfo selectedDir = tiles[0,0];
+    List<tileInfo> vineDirection(int x, int y) {
+        
         List<tileInfo> possibleDirections = new List<tileInfo>();
 
         if (tiles[x + 1, y].crntType == tileInfo.tileType.Vine)
@@ -169,7 +184,7 @@ public class tileScript : MonoBehaviour
         if (tiles[x, y -1 ].crntType == tileInfo.tileType.Vine)
             possibleDirections.Add(tiles[x + 1, y -1]);
 
-        selectedDir = possibleDirections[Random.Range(possibleDirections.Count -1, possibleDirections.Count)];
-        return selectedDir;
+        //selectedDir = possibleDirections[Random.Range(possibleDirections.Count -1, possibleDirections.Count)];
+        return possibleDirections;
     }
 }
