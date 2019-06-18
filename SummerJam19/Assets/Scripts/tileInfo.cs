@@ -4,13 +4,16 @@ using UnityEngine;
 
 public class tileInfo : MonoBehaviour
 {
+    public Vector3 position;
 
-    enum tileType {Empty, Vine, Flower};
+
+    public enum tileType {Empty, Vine, Flower};
+
+    public tileType crntType;
 
     private void Start()
     {
-        tileType crntType;
-
+       
         crntType = tileType.Empty;
     }
 }
