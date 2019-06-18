@@ -14,6 +14,9 @@ public class tileScript : MonoBehaviour
 
     public GameObject flowerBall;
 
+    public GameObject selectionPlane;
+    
+
     // Start is called before the first frame update
     void Start()
     {
@@ -47,7 +50,13 @@ public class tileScript : MonoBehaviour
 
     public void selectTile(int x, int y) {
 
+        if (selectedTile == null) {
+            selectionPlane = Instantiate(selectionPlane, new Vector3(x, 0.2f, y), Quaternion.identity, this.transform);
+        }
+        selectionPlane.transform.position = new Vector3(x, 0.2f, y);
         selectedTile = tiles[x, y];
+
+
         //Debug.Log("selected tile = " + selectedTile.position.ToString());
         Debug.Log("tile type = " + selectedTile.crntType);
     }
