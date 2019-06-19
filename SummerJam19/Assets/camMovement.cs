@@ -37,9 +37,11 @@ public class camMovement : MonoBehaviour
 
         //cam.transform.Translate(scrollPos * Time.deltaTime * interpolation, Space.World);
 
-        cam.GetComponent<Rigidbody>().AddForce(scrollPos * 20, ForceMode.Impulse);
-        cam.GetComponent<Rigidbody>().velocity = Vector3.zero;
-
+        if (cam.transform.position.y <= 50f)
+        {
+            cam.GetComponent<Rigidbody>().AddForce(scrollPos * 20, ForceMode.Impulse);
+            cam.GetComponent<Rigidbody>().velocity = Vector3.zero;
+        }
 
         transform.Translate(targetPos * Time.deltaTime * interpolation);
 

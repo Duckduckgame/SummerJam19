@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class tileScript : MonoBehaviour
 {
-    int mapSizeX = 50;
-    int mapSizeY = 50;
+    int mapSizeX = 200;
+    int mapSizeY = 200;
 
     public GameObject tileGO;
     public tileInfo[,] tiles;
@@ -29,21 +29,9 @@ public class tileScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        tiles = new tileInfo[mapSizeX, mapSizeY];
+        generateTiles();
 
-        for (int x = 0; x < mapSizeX; x++)
-        {
-            for (int y = 0; y < mapSizeY; y++)
-            {
-                Vector3 pos = new Vector3(x, 0, y);
-                GameObject tileEmpty = Instantiate(tileGO, pos, Quaternion.identity, this.gameObject.transform);
-                tileEmpty.transform.name = pos.ToString();
-                tiles[x, y] = tileEmpty.GetComponent<tileInfo>();
-                tiles[x, y].position = pos;
-               
-            }
-
-        }
+        //updateTiles();
 
         tiles[15, 15].crntType = tileInfo.tileType.Vine;
         Instantiate(flowerBall, tiles[15, 15].position, Quaternion.identity);
@@ -188,5 +176,42 @@ public class tileScript : MonoBehaviour
 
         //selectedDir = possibleDirections[Random.Range(possibleDirections.Count -1, possibleDirections.Count)];
         return possibleDirections;
+    }
+
+    void generateTiles() {
+
+        tiles = new tileInfo[mapSizeX, mapSizeY];
+
+        for (int x = 0; x < mapSizeX; x++)
+        {
+            for (int y = 0; y < mapSizeY; y++)
+            {
+                Vector3 pos = new Vector3(x, 0, y);
+                GameObject tileEmpty = Instantiate(tileGO, pos, Quaternion.identity, this.gameObject.transform);
+                tileEmpty.transform.name = pos.ToString();
+                tiles[x, y] = tileEmpty.GetComponent<tileInfo>();
+                tiles[x, y].position = pos;
+
+            }
+
+        }
+    }
+
+    void updateTiles() {
+
+        foreach (tileInfo tile in tiles)
+        {
+
+            RaycastHit hit;
+            
+            if (Physics.Raycast(tile.position, Vector3.up, out hit, 3))
+            {
+                if (hit.collider != null)
+                {
+                    Debug.Log(hit.collider.gameObject.tag);
+                }
+            }
+        }
+
     }
 }
