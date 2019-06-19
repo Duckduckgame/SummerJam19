@@ -20,7 +20,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: VertexMatt
+  m_Name: VertexMatt 1
   m_Shader: {fileID: -6465566751694194690, guid: 69db5801e22875b479a79129722b4dcf,
     type: 3}
   m_ShaderKeywords: 
@@ -55,6 +55,10 @@ Material:
         m_Offset: {x: 0, y: 0}
     - _OcclusionMap:
         m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _SampleTexture2DLOD_6F72F1FC_Texture:
+        m_Texture: {fileID: 2800000, guid: ee7680f1374ab4449b6d5f6b2c2c1936, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _SpecGlossMap:

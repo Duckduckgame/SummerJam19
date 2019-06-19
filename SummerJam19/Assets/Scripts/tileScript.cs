@@ -12,13 +12,13 @@ public class tileScript : MonoBehaviour
 
     public tileInfo selectedTile;
 
-    public enum growthDirection {up, upRight, right, downRight, down, downLeft, left, upLeft }
+    public enum growthDirection { up, upRight, right, downRight, down, downLeft, left, upLeft }
 
     #region models
     public GameObject flowerBall;
 
-    public GameObject straightVine;
-    public GameObject diagVine;
+    public GameObject[] straightVine;
+    
 
     #endregion
 
@@ -92,8 +92,10 @@ public class tileScript : MonoBehaviour
                 growthDirection chosenDir = findGrowthDirection(TI, target);
 
                 int vineRot = vineRotation(chosenDir);
+                Vector3 pos = target.position;
+                pos.y = Random.Range(-0.02f, 0.05f);
 
-                Instantiate(straightVine, target.position, Quaternion.Euler(0, vineRot, 0), target.transform);
+                Instantiate(straightVine[Random.Range(0,straightVine.Length)], pos, Quaternion.Euler(0, vineRot, 0), target.transform);
                 target.crntType = tileInfo.tileType.Vine;
             }
 
