@@ -29,6 +29,7 @@ public class tileScript : MonoBehaviour
     List<GameObject> flowerLocationPlanes;
 
     UIManager UIM;
+    flowerController FC;
 
     public GameObject debugBall;
     
@@ -42,7 +43,7 @@ public class tileScript : MonoBehaviour
 
         UIM = GameObject.Find("UIManager").GetComponent<UIManager>();
         TC = GameObject.Find("TickerController").GetComponent<tickerController>();
-
+        FC = GameObject.Find("TickerController").GetComponent<flowerController>();
         generateTiles();
 
         updateTiles();
@@ -353,6 +354,7 @@ public class tileScript : MonoBehaviour
     }
 
     public void placeFlower() {
+
         Instantiate(flowerBall, selectedTile.position, Quaternion.identity, selectedTile.transform);
         selectedTile.crntType = tileInfo.tileType.Flower;
         updateFlowerPlacement();

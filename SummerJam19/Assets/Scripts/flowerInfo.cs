@@ -28,7 +28,9 @@ public class flowerInfo : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        crntSunPerTick = sunPerTick01;
+        crntNutrientPerTick = nutrientPerTick01;
+        crntWaterPerTick = waterPerTick01;
     }
 
     // Update is called once per frame

@@ -9,7 +9,10 @@ public class UIManager : MonoBehaviour
 
     public tileScript TS;
 
-    public Button placePlants;
+    public Button placeSunBut;
+    public Button placeWaterBut;
+    public Button placeNutriBut;
+    public Button placeRadioBut;
 
     public CanvasGroup flowerPlace;
 
@@ -47,7 +50,8 @@ public class UIManager : MonoBehaviour
         UISections.Add(UIType.FlowerUpgrade, flowerUpgrade);
         UISections.Add(UIType.Pause, pause);
 
-        placePlants.onClick.AddListener(placeFlower);   
+        placeSunBut.onClick.AddListener(placeSun);
+        
     }
 
     // Update is called once per frame
@@ -61,7 +65,7 @@ public class UIManager : MonoBehaviour
         }
     }
 
-    void placeFlower() {
+    void placeSun() {
         TS.placeFlower();
     }
 
