@@ -14,18 +14,20 @@ public class tileScript : MonoBehaviour
 
     public enum growthDirection { up, upRight, right, downRight, down, downLeft, left, upLeft }
 
-    #region models
     public GameObject flowerBall;
 
     public GameObject[] straightVine;
 
     public List<tileInfo> vineTiles;
-    
 
-    #endregion
 
+    List<tileInfo> flowerLocations;
 
     public GameObject selectionPlane;
+    public GameObject flowerLocationPlane;
+    List<GameObject> flowerLocationPlanes;
+
+    UIManager UIM;
 
     public GameObject debugBall;
     
@@ -34,6 +36,10 @@ public class tileScript : MonoBehaviour
     void Start()
     {
         vineTiles = new List<tileInfo>();
+        flowerLocationPlanes = new List<GameObject>();
+        updateFlowerPlacement();
+
+        UIM = GameObject.Find("UIManager").GetComponent<UIManager>();
 
         generateTiles();
 
@@ -61,6 +67,16 @@ public class tileScript : MonoBehaviour
         selectionPlane.transform.position = new Vector3(x, 0.01f, y);
         selectedTile = tiles[x, y];
 
+        if (flowerLocations.Contains(selectedTile)) {
+            Debug.Log("Flower tile selected! Press Space to place a Sunflower");
+            UIM.crntType = UIManager.UIType.FlowerPlace;
+        }
+        if (!flowerLocations.Contains(selectedTile)) {
+            UIM.crntType = UIManager.UIType.None;
+        }
+        if (selectedTile.crntType == tileInfo.tileType.Flower) {
+            UIM.crntType = UIManager.UIType.FlowerUpgrade;
+        }
 
         //Debug.Log("selected tile = " + selectedTile.position.ToString());
         Debug.Log("tile type = " + selectedTile.crntType + " at: " + x + "/" + y);
@@ -92,6 +108,8 @@ public class tileScript : MonoBehaviour
 
                 Instantiate(straightVine[Random.Range(0,straightVine.Length)], pos, Quaternion.Euler(0, vineRot, 0), target.transform);
                 target.crntType = tileInfo.tileType.Vine;
+                vineTiles.Add(target);
+                updateFlowerPlacement();
             }
         }
     }
@@ -161,6 +179,33 @@ public class tileScript : MonoBehaviour
         return false;
     }
 
+    List<tileInfo> findFlowerLocations() {
+
+        List<tileInfo> flowerPlacementTiles = new List<tileInfo>();
+
+        //find all vines
+        foreach (tileInfo tile in vineTiles) {
+            tileInfo[] neighbourTiles = findNeighbours(tile, 1, true, true);
+            bool isClean = true;
+            //check every vines neighbour
+            foreach (tileInfo neighbour in neighbourTiles) {
+                if (neighbour.crntType != tileInfo.tileType.Vine && neighbour.crntType != tileInfo.tileType.Empty) {
+                    isClean = false;
+                }
+            }
+            //if all neighbours are clean, vine is valid
+            if (isClean == true) {
+                Debug.Log("clean tile found");
+                flowerPlacementTiles.Add(tile);
+               
+                
+            }
+            
+        }
+        return flowerPlacementTiles;
+        
+    }
+
     List<tileInfo> vineDirection(int x, int y) {
         
         List<tileInfo> possibleDirections = new List<tileInfo>();
@@ -171,20 +216,7 @@ public class tileScript : MonoBehaviour
                 possibleDirections.Add(tile);
             }
         }
-            /*
-        if (tiles[x + 1, y].crntType == tileInfo.tileType.Vine)
-            possibleDirections.Add(tiles[x + 1, y]);
-
-        if (tiles[x - 1, y].crntType == tileInfo.tileType.Vine)
-            possibleDirections.Add(tiles[x - 1, y]);
-
-        if (tiles[x, y + 1].crntType == tileInfo.tileType.Vine)
-            possibleDirections.Add(tiles[x, y + 1]);
-
-        if (tiles[x, y -1 ].crntType == tileInfo.tileType.Vine)
-            possibleDirections.Add(tiles[x + 1, y -1]);
-            */
-        //selectedDir = possibleDirections[Random.Range(possibleDirections.Count -1, possibleDirections.Count)];
+         
         return possibleDirections;
     }
 
@@ -267,8 +299,10 @@ public class tileScript : MonoBehaviour
             }
         }
 
-    tileInfo[] findNeighbours(tileInfo crntTile, int radius, bool includeDiagonals) {
+    tileInfo[] findNeighbours(tileInfo crntTile, int radius, bool includeDiagonals, bool includeSelf = false) {
         List<tileInfo> targetTiles = new List<tileInfo>();
+        if (includeSelf)
+            targetTiles.Add(crntTile);
 
         int x = crntTile.Xpos;
         int y = crntTile.Ypos;
@@ -295,6 +329,30 @@ public class tileScript : MonoBehaviour
         foreach (tileInfo tile in targetTiles) {
             Instantiate(selectionPlane, tile.position + new Vector3(0, 0.5f, 0), Quaternion.identity);
         }
+    }
+
+    public void updateFlowerPlacement() {
+
+        flowerLocations = findFlowerLocations();
+
+        GameObject[] GOarray = flowerLocationPlanes.ToArray();
+
+        for (int i = 0; i < GOarray.Length; i++) { 
+            Destroy(GOarray[i]);       
+        }
+
+        flowerLocationPlanes.Clear();
+
+        foreach (tileInfo tile in flowerLocations) {
+            GameObject flowerPlaneGO = Instantiate(flowerLocationPlane, tile.position + new Vector3(0, 0.2f, 0), Quaternion.identity);
+            flowerLocationPlanes.Add(flowerPlaneGO);
+        }
+    }
+
+    public void placeFlower() {
+        Instantiate(flowerBall, selectedTile.position, Quaternion.identity, selectedTile.transform);
+        selectedTile.crntType = tileInfo.tileType.Flower;
+        updateFlowerPlacement();
     }
 
     }

@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class cameraScript : MonoBehaviour
 {
@@ -22,27 +23,30 @@ public class cameraScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (!EventSystem.current.IsPointerOverGameObject())
+        {
+            if (Input.GetMouseButtonDown(0))
+            {
 
-        if (Input.GetMouseButtonDown(0)){
-            
 
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+                Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
-            float distance;
-            if (groundPlane.Raycast(ray, out distance)) {
+                float distance;
+                if (groundPlane.Raycast(ray, out distance))
+                {
 
-                Vector3 worldPosition = ray.GetPoint(distance);
-                selectX = Mathf.RoundToInt(worldPosition.x);
-                selectY = Mathf.RoundToInt(worldPosition.z);
+                    Vector3 worldPosition = ray.GetPoint(distance);
+                    selectX = Mathf.RoundToInt(worldPosition.x);
+                    selectY = Mathf.RoundToInt(worldPosition.z);
 
-                Debug.DrawLine(Camera.main.transform.position, worldPosition);
-                //Debug.LogFormat("Clicked Positions: {0} | {1}", selectX, selectY);
+                    Debug.DrawLine(Camera.main.transform.position, worldPosition);
+                    //Debug.LogFormat("Clicked Positions: {0} | {1}", selectX, selectY);
 
-                TS.selectTile(selectX, selectY);
+                    TS.selectTile(selectX, selectY);
+                }
             }
         }
-
-        if (Input.GetMouseButtonDown(1))
+        if (Input.GetMouseButton(1))
         {
 
 
