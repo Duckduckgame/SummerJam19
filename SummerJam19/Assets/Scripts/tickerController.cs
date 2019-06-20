@@ -11,6 +11,8 @@ public class tickerController : MonoBehaviour
 
     public int tickerCooldown = 10;
 
+    public List<GameObject> flowers = new List<GameObject>();
+
     // Start is called before the first frame update
     void Start()
     {
@@ -25,8 +27,10 @@ public class tickerController : MonoBehaviour
     }
 
     void tickFlowers() {
-        sunAmount += sunFlower01Amount * 1;
-        Debug.Log(sunAmount.ToString());
-        Debug.Log(Time.time);
+
+        foreach (GameObject flower in flowers)
+        {
+            sunAmount += flower.GetComponent<flowerInfo>().crntSunPerTick;
+        }
     }
 }
