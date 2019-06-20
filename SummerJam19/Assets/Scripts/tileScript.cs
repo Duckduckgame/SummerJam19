@@ -45,8 +45,8 @@ public class tileScript : MonoBehaviour
 
         updateTiles();
 
-        tiles[15, 15].crntType = tileInfo.tileType.Flower;
-        Instantiate(flowerBall, tiles[15, 15].position, Quaternion.identity);
+        tiles[16, 15].crntType = tileInfo.tileType.Flower;
+        Instantiate(flowerBall, tiles[16, 15].position, Quaternion.identity);
     }
 
     // Update is called once per frame
