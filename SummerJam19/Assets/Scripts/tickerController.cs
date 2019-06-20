@@ -1,11 +1,15 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using TMPro;
+
 
 public class tickerController : MonoBehaviour
 {
+    public TextMeshProUGUI sunText;
 
-    public int sunAmount = 0;
+    public int sunAmount = 1;
 
     public int sunFlower01Amount = 1;
 
@@ -23,7 +27,7 @@ public class tickerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        sunText.text = "Sun: " + sunAmount.ToString();
     }
 
     void tickFlowers() {
