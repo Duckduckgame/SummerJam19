@@ -18,6 +18,8 @@ public class tileScript : MonoBehaviour
     public GameObject flowerBall;
 
     public GameObject[] straightVine;
+
+    public List<tileInfo> vineTiles;
     
 
     #endregion
@@ -31,11 +33,13 @@ public class tileScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        vineTiles = new List<tileInfo>();
+
         generateTiles();
 
         updateTiles();
 
-        tiles[15, 15].crntType = tileInfo.tileType.Vine;
+        tiles[15, 15].crntType = tileInfo.tileType.Flower;
         Instantiate(flowerBall, tiles[15, 15].position, Quaternion.identity);
     }
 
@@ -53,12 +57,13 @@ public class tileScript : MonoBehaviour
         if (selectedTile == null) {
             selectionPlane = Instantiate(selectionPlane, new Vector3(x, 0.01f, y), Quaternion.identity, this.transform);
         }
+       
         selectionPlane.transform.position = new Vector3(x, 0.01f, y);
         selectedTile = tiles[x, y];
 
 
         //Debug.Log("selected tile = " + selectedTile.position.ToString());
-        Debug.Log("tile type = " + selectedTile.crntType);
+        Debug.Log("tile type = " + selectedTile.crntType + " at: " + x + "/" + y);
     }
 
     public void changeTileType() {
@@ -74,7 +79,7 @@ public class tileScript : MonoBehaviour
         tileInfo target = tiles[x, y];
         
         if (checkVineViability(x, y) == true) {
-
+            Debug.Log("spawn triggered");
             List<tileInfo> from = vineDirection(x, y);
 
             foreach (tileInfo TI in from)
@@ -88,13 +93,6 @@ public class tileScript : MonoBehaviour
                 Instantiate(straightVine[Random.Range(0,straightVine.Length)], pos, Quaternion.Euler(0, vineRot, 0), target.transform);
                 target.crntType = tileInfo.tileType.Vine;
             }
-
-           /* growthDirection chosenDir = findGrowthDirection(from, target);
-
-            int vineRot = vineRotation(chosenDir);
-
-            Instantiate(straightVine, target.position, Quaternion.Euler(0, vineRot, 0), target.transform);
-            target.crntType = tileInfo.tileType.Vine;*/
         }
     }
 
@@ -106,11 +104,8 @@ public class tileScript : MonoBehaviour
         int toY = Mathf.RoundToInt(to.position.z);
 
         //is above
-        if (toY > fromY) {
-            
-            //if (toX > fromX) { return growthDirection.upRight; }
+        if (toY > fromY) {         
             if (toX == fromX) { return growthDirection.down; }
-           // if (toX < fromX) { return growthDirection.upLeft;  }
         }
         //is same level
         if (toY == fromY) {
@@ -120,9 +115,7 @@ public class tileScript : MonoBehaviour
         }
         //is below
         if (toY < fromY) {
-           // if (toX > fromX) { return growthDirection.downRight; }
             if (toX == fromX) { return growthDirection.up; }
-           // if (toX < fromX) { return growthDirection.downLeft; }
         }
         Debug.LogError("no growth direction found");
         return growthDirection.down;
@@ -148,22 +141,37 @@ public class tileScript : MonoBehaviour
     }
 
     bool checkVineViability(int x, int y) {
-        if (tiles[x,y].crntType != tileInfo.tileType.Empty)
+        if (tiles[x, y].crntType != tileInfo.tileType.Empty)
         {
-            Debug.Log("Tile not Valid");
+            Debug.Log("Tile not Valid, crntTile is not empty");
             return false;
         }
-        if (tiles[x + 1, y].crntType == tileInfo.tileType.Vine || tiles[x - 1, y].crntType == tileInfo.tileType.Vine || tiles[x, y + 1].crntType == tileInfo.tileType.Vine || tiles[x, y - 1].crntType == tileInfo.tileType.Vine/* || tiles[x + 1, y + 1].crntType == tileInfo.tileType.Vine || tiles[x - 1, y - 1].crntType == tileInfo.tileType.Vine || tiles[x + 1, y - 1].crntType == tileInfo.tileType.Vine || tiles[x - 1, y + 1].crntType == tileInfo.tileType.Vine*/) {
-            return true;
-        }
-        Debug.Log("Tile not Valid");
+            tileInfo[] tilesToCheck = findNeighbours(tiles[x, y], 1, false);
+
+            foreach (tileInfo tile in tilesToCheck) {
+                //Instantiate(selectionPlane, tile.position + new Vector3(0, 0.5f, 0), Quaternion.identity);
+            
+                if (tile.crntType == tileInfo.tileType.Vine || tile.crntType == tileInfo.tileType.Flower) {
+                    return true;
+                
+                }
+            
+            }
+        Debug.Log("Tile not Valid, no Neighbours found");
         return false;
     }
 
     List<tileInfo> vineDirection(int x, int y) {
         
         List<tileInfo> possibleDirections = new List<tileInfo>();
+        tileInfo[] foundNeighbours = findNeighbours(tiles[x, y], 1, false);
 
+            foreach (tileInfo tile in foundNeighbours) {
+            if (tile.crntType == tileInfo.tileType.Vine || tile.crntType == tileInfo.tileType.Flower) {
+                possibleDirections.Add(tile);
+            }
+        }
+            /*
         if (tiles[x + 1, y].crntType == tileInfo.tileType.Vine)
             possibleDirections.Add(tiles[x + 1, y]);
 
@@ -175,7 +183,7 @@ public class tileScript : MonoBehaviour
 
         if (tiles[x, y -1 ].crntType == tileInfo.tileType.Vine)
             possibleDirections.Add(tiles[x + 1, y -1]);
-
+            */
         //selectedDir = possibleDirections[Random.Range(possibleDirections.Count -1, possibleDirections.Count)];
         return possibleDirections;
     }
@@ -193,6 +201,8 @@ public class tileScript : MonoBehaviour
                 tileEmpty.transform.name = pos.ToString();
                 tiles[x, y] = tileEmpty.GetComponent<tileInfo>();
                 tiles[x, y].position = pos;
+                tiles[x,y].Xpos = Mathf.RoundToInt(pos.x);
+                tiles[x,y].Ypos = Mathf.RoundToInt(pos.z);
 
             }
 
@@ -256,6 +266,36 @@ public class tileScript : MonoBehaviour
                 }*/
             }
         }
+
+    tileInfo[] findNeighbours(tileInfo crntTile, int radius, bool includeDiagonals) {
+        List<tileInfo> targetTiles = new List<tileInfo>();
+
+        int x = crntTile.Xpos;
+        int y = crntTile.Ypos;
+        for (int i = 0; i < radius ; i++) {
+            int n = i + 1;
+            targetTiles.Add(tiles[x + n, y]);
+            targetTiles.Add(tiles[x - n, y]);
+            targetTiles.Add(tiles[x, y + n]);
+            targetTiles.Add(tiles[x, y - n]);
+
+            if (includeDiagonals == true) {
+                targetTiles.Add(tiles[x + n, y + n]);
+                targetTiles.Add(tiles[x - n, y - n]);
+                targetTiles.Add(tiles[x + n, y - n]);
+                targetTiles.Add(tiles[x - n, y + n]);
+            }
+        }
+
+        
+        return targetTiles.ToArray();
+    }
+
+    void debugRadius(tileInfo[] targetTiles) {
+        foreach (tileInfo tile in targetTiles) {
+            Instantiate(selectionPlane, tile.position + new Vector3(0, 0.5f, 0), Quaternion.identity);
+        }
+    }
 
     }
 

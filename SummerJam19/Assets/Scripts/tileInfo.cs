@@ -24,17 +24,15 @@ public class tileInfo : MonoBehaviour
     private void Start()
     {
        TS = GameObject.Find("TileManager").GetComponent<tileScript>();
-        Xpos = Mathf.RoundToInt(position.x);
-        Ypos = Mathf.RoundToInt(position.y);
-        //crntType = tileType.Empty;
+        
     }
 
     private void Update()
     {
-        if (crntType != oldType) {
+        /*if (crntType != oldType) {
             updateTileType(crntType);
             oldType = crntType;
-        }
+        }*/
     }
 
 
