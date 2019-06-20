@@ -24,6 +24,8 @@ public class tileScript : MonoBehaviour
 
 
     public GameObject selectionPlane;
+
+    public GameObject debugBall;
     
 
     // Start is called before the first frame update
@@ -31,7 +33,7 @@ public class tileScript : MonoBehaviour
     {
         generateTiles();
 
-        //updateTiles();
+        updateTiles();
 
         tiles[15, 15].crntType = tileInfo.tileType.Vine;
         Instantiate(flowerBall, tiles[15, 15].position, Quaternion.identity);
@@ -146,7 +148,7 @@ public class tileScript : MonoBehaviour
     }
 
     bool checkVineViability(int x, int y) {
-        if (tiles[x, y].crntType == tileInfo.tileType.Vine || tiles[x, y].crntType == tileInfo.tileType.Flower)
+        if (tiles[x,y].crntType != tileInfo.tileType.Empty)
         {
             Debug.Log("Tile not Valid");
             return false;
@@ -203,15 +205,58 @@ public class tileScript : MonoBehaviour
         {
 
             RaycastHit hit;
-            
-            if (Physics.Raycast(tile.position, Vector3.up, out hit, 3))
+
+            if (Physics.Raycast(tile.position + new Vector3(0, 100, 0), Vector3.down, out hit)){
+
+                if (hit.distance < 99.9f)
+                {
+                   
+                    tile.crntType = tileInfo.tileType.Full;
+                }
+                /*if (hit.distance == 100) {
+                    Instantiate(debugBall, hit.point, Quaternion.identity);
+                }*/
+                if (hit.distance > 100.1f) {
+
+                    tile.crntType = tileInfo.tileType.Full;
+
+                }
+                    
+            }
+
+            /*if (Physics.Raycast(tile.position, Vector3.up, out hit, 3))
             {
                 if (hit.collider != null)
                 {
-                    Debug.Log(hit.collider.gameObject.tag);
-                }
+                    GameObject targetGO = hit.collider.gameObject;
+
+                    if (targetGO.tag == "NV") {
+                        tile.crntType = tileInfo.tileType.Full;
+                        continue;
+                    }
+                    if (targetGO.tag == "water")
+                    {
+                        tile.crntType = tileInfo.tileType.Full;
+                        tile.hasWater = true;
+                        continue;
+                    }
+                    if (targetGO.tag == "nutrient")
+                    {
+                        tile.crntType = tileInfo.tileType.Full;
+                        tile.hasNutrient = true;
+                        continue;
+                    }
+                    if (targetGO.tag == "radioactive")
+                    {
+                        tile.crntType = tileInfo.tileType.Full;
+                        tile.hasRadio = true;
+                        continue;
+                    }
+
+                }*/
             }
         }
 
     }
-}
+
+

@@ -11,7 +11,11 @@ public class tileInfo : MonoBehaviour
 
     tileScript TS;
 
-    public enum tileType {Empty, Vine, Flower};
+    public bool hasWater = false;
+    public bool hasNutrient = false;
+    public bool hasRadio = false;
+
+    public enum tileType {Empty, Vine, Flower, Radioactive, Full};
 
     public tileType crntType;
 
