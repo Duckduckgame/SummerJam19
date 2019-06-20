@@ -21,6 +21,8 @@ public class tickerController : MonoBehaviour
     void Start()
     {
         InvokeRepeating("tickFlowers", 0, tickerCooldown);
+
+        
         
     }
 
@@ -34,6 +36,7 @@ public class tickerController : MonoBehaviour
 
         foreach (GameObject flower in flowers)
         {
+            Debug.Log(flower.GetComponent<flowerInfo>().crntSunPerTick);
             sunAmount += flower.GetComponent<flowerInfo>().crntSunPerTick;
         }
     }

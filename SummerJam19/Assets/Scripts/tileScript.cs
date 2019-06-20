@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class tileScript : MonoBehaviour
 {
+    tickerController TC;
     int mapSizeX = 200;
     int mapSizeY = 200;
 
@@ -40,13 +41,15 @@ public class tileScript : MonoBehaviour
         updateFlowerPlacement();
 
         UIM = GameObject.Find("UIManager").GetComponent<UIManager>();
+        TC = GameObject.Find("TickerController").GetComponent<tickerController>();
 
         generateTiles();
 
         updateTiles();
 
         tiles[16, 15].crntType = tileInfo.tileType.Flower;
-        Instantiate(flowerBall, tiles[16, 15].position, Quaternion.identity);
+        GameObject flowerGO1 = Instantiate(flowerBall, tiles[16, 15].position, Quaternion.identity);
+        TC.flowers.Add(flowerGO1);
     }
 
     // Update is called once per frame

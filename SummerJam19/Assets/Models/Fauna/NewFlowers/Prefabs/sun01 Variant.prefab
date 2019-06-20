@@ -21,7 +21,7 @@ MonoBehaviour:
   sunPerTick03: 0
   waterPerTick03: 0
   nutrientPerTick03: 0
-  crntSunPerTick: 0
+  crntSunPerTick: 1
   crntWaterPerTick: 0
   crntNutrientPerTick: 0
   crntUpgradeLvl: 0
