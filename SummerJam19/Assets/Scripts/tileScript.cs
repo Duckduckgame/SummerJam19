@@ -200,7 +200,7 @@ public class tileScript : MonoBehaviour
             bool isClean = true;
             //check every vines neighbour
             foreach (tileInfo neighbour in neighbourTiles) {
-                if (neighbour.crntType != tileInfo.tileType.Vine && neighbour.crntType != tileInfo.tileType.Empty && neighbour.crntType != tileInfo.tileType.Water) {
+                if (neighbour.crntType != tileInfo.tileType.Vine && neighbour.crntType != tileInfo.tileType.Empty && neighbour.crntType != tileInfo.tileType.Water && neighbour.crntType != tileInfo.tileType.RadioActive) {
                     isClean = false;
                 }
             }
@@ -273,6 +273,7 @@ public class tileScript : MonoBehaviour
                     if (hit.collider.gameObject.tag == "radioactive")
                     {
                         GameObject radioTile = Instantiate(radioPlane, tile.position + new Vector3(0, 0.1f, 0), Quaternion.identity);
+                        tile.crntType = tileInfo.tileType.RadioActive;
                         maptoRadioTiles.Add(tile, radioTile);
                         tile.hasRadio = true;
                     }
@@ -344,10 +345,13 @@ public class tileScript : MonoBehaviour
 
         tileInfo[] neighbours = findNeighbours(selectedTile, 1, true, true);
         List<tileInfo> radioTiles = new List<tileInfo>();
+
         GameObject FGO = Instantiate(FC.flowerTypes[flowerType], selectedTile.position, Quaternion.identity, selectedTile.transform);
         mapToFlower.Add(selectedTile, FGO.GetComponent<flowerInfo>());
         TC.flowers.Add(FGO);
+
         selectedTile.crntType = tileInfo.tileType.Flower;
+
         foreach (tileInfo tile in neighbours) {
             if (tile.hasWater == true)
                 FGO.GetComponent<flowerInfo>().localWaterAmount++;
@@ -356,10 +360,16 @@ public class tileScript : MonoBehaviour
             if (tile.hasRadio)
                 radioTiles.Add(tile);
         }
+
         selectTile(selectedTile.Xpos, selectedTile.Ypos);
         updateFlowerPlacement();
 
         if (flowerType == flowerController.flowerType.RadioActive) {
+            foreach (tileInfo tile in radioTiles)
+            {
+                tile.hasRadio = false;
+                tile.crntType = tileInfo.tileType.Empty;
+            }
             StartCoroutine(FadeRadioActive(radioTiles));
         }
     }
