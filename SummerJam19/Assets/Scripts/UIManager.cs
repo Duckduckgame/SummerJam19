@@ -8,11 +8,14 @@ public class UIManager : MonoBehaviour
     public float lerpSpeed;
 
     public tileScript TS;
+    public flowerInfo FI;
 
     public Button placeSunBut;
     public Button placeWaterBut;
     public Button placeNutriBut;
     public Button placeRadioBut;
+
+    public Button upgradeBut;
 
     public CanvasGroup flowerPlace;
 
@@ -36,13 +39,15 @@ public class UIManager : MonoBehaviour
     void Start()
     {
 
-
+        
         TS = GameObject.Find("TileManager").GetComponent<tileScript>();
 
         flowerPlace = GameObject.Find("FlowerPlacementGroup").GetComponent<CanvasGroup>();
         none = GameObject.Find("NoneGroup").GetComponent<CanvasGroup>();
         flowerUpgrade = GameObject.Find("FlowerUpgradeGroup").GetComponent<CanvasGroup>();
         pause = GameObject.Find("PauseGroup").GetComponent<CanvasGroup>();
+
+
 
         UISections = new Dictionary<UIType, CanvasGroup>();
         UISections.Add(UIType.None, none);
@@ -51,6 +56,11 @@ public class UIManager : MonoBehaviour
         UISections.Add(UIType.Pause, pause);
 
         placeSunBut.onClick.AddListener(placeSun);
+        placeNutriBut.onClick.AddListener(placeNutrient);
+        placeRadioBut.onClick.AddListener(placeRadioactive);
+        placeWaterBut.onClick.AddListener(placeWater);
+
+        upgradeBut.onClick.AddListener(upgradeFlower);
         
     }
 
@@ -66,13 +76,30 @@ public class UIManager : MonoBehaviour
     }
 
     void placeSun() {
-        TS.placeFlower();
+        TS.placeFlower(flowerController.flowerType.Sun);
+    }
+    void placeWater()
+    {
+        TS.placeFlower(flowerController.flowerType.Water);
+    }
+    void placeNutrient()
+    {
+        TS.placeFlower(flowerController.flowerType.Nutrient);
+    }
+    void placeRadioactive()
+    {
+        TS.placeFlower(flowerController.flowerType.RadioActive);
     }
 
-    void switchUIType() {
+    void upgradeFlower() {
+        TS.mapToFlower[TS.selectedTile].GetComponent<flowerInfo>().upgradeFlower();
+    }
+
+    public void switchUIType() {
 
         CanvasGroup oldCG = UISections[oldType];
         CanvasGroup newCG = UISections[crntType];
+
 
         StartCoroutine(FadeCG(oldCG, newCG));
 

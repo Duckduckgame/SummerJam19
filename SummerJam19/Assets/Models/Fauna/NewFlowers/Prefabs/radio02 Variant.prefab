@@ -24,7 +24,13 @@ MonoBehaviour:
   crntSunPerTick: 0
   crntWaterPerTick: 0
   crntNutrientPerTick: 0
-  crntLvl: 0
+  upgrade02: {fileID: -927199367670048503, guid: 264c5a3bb3f3f6f448071c3903a16ab5,
+    type: 3}
+  upgrade03: {fileID: -927199367670048503, guid: 474646ff392785041bfd7243049e97d1,
+    type: 3}
+  crntUpgradeLvl: 0
+  localWaterAmount: 0
+  localNutrientAmount: 0
 --- !u!1001 &8293276729321523435
 PrefabInstance:
   m_ObjectHideFlags: 0

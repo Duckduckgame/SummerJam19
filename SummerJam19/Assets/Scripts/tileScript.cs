@@ -28,6 +28,8 @@ public class tileScript : MonoBehaviour
     public GameObject flowerLocationPlane;
     List<GameObject> flowerLocationPlanes;
 
+    public Dictionary<tileInfo, flowerInfo> mapToFlower = new Dictionary<tileInfo, flowerInfo>();
+
     UIManager UIM;
     flowerController FC;
 
@@ -48,8 +50,8 @@ public class tileScript : MonoBehaviour
 
         updateTiles();
 
-        tiles[16, 15].crntType = tileInfo.tileType.Flower;
-        GameObject flowerGO1 = Instantiate(flowerBall, tiles[16, 15].position, Quaternion.identity);
+        tiles[40, 46].crntType = tileInfo.tileType.Flower;
+        GameObject flowerGO1 = Instantiate(flowerBall, tiles[40, 46].position, Quaternion.identity);
         TC.flowers.Add(flowerGO1);
     }
 
@@ -72,17 +74,19 @@ public class tileScript : MonoBehaviour
         selectedTile = tiles[x, y];
 
         if (flowerLocations.Contains(selectedTile)) {
-            Debug.Log("Flower tile selected! Press Space to place a Sunflower");
             UIM.crntType = UIManager.UIType.FlowerPlace;
         }
         if (!flowerLocations.Contains(selectedTile)) {
             UIM.crntType = UIManager.UIType.None;
         }
-        if (selectedTile.crntType == tileInfo.tileType.Flower) {
+        if (selectedTile.crntType == tileInfo.tileType.Flower)
+        {
+            if (mapToFlower[selectedTile].crntUpgradeLvl != flowerInfo.upgradeLevel.three) { 
             UIM.crntType = UIManager.UIType.FlowerUpgrade;
+            }
         }
 
-        //Debug.Log("selected tile = " + selectedTile.position.ToString());
+       
         Debug.Log("tile type = " + selectedTile.crntType + " at: " + x + "/" + y);
     }
 
@@ -193,7 +197,7 @@ public class tileScript : MonoBehaviour
             bool isClean = true;
             //check every vines neighbour
             foreach (tileInfo neighbour in neighbourTiles) {
-                if (neighbour.crntType != tileInfo.tileType.Vine && neighbour.crntType != tileInfo.tileType.Empty) {
+                if (neighbour.crntType != tileInfo.tileType.Vine && neighbour.crntType != tileInfo.tileType.Empty && neighbour.crntType != tileInfo.tileType.Water) {
                     isClean = false;
                 }
             }
@@ -256,52 +260,27 @@ public class tileScript : MonoBehaviour
 
                 if (hit.distance < 99.9f)
                 {
-                   
-                    tile.crntType = tileInfo.tileType.Full;
+                    if (hit.collider.gameObject.tag != "nutrient" && hit.collider.gameObject.tag != "radioactive")
+                        tile.crntType = tileInfo.tileType.Full;
+
+                    if (hit.collider.gameObject.tag == "nutrient")
+                        tile.hasNutrient = true;
+                    
+
+                    if (hit.collider.gameObject.tag == "radioactive")
+                        tile.hasRadio = true;
                 }
-                /*if (hit.distance == 100) {
-                    Instantiate(debugBall, hit.point, Quaternion.identity);
-                }*/
+
                 if (hit.distance > 100.1f) {
 
-                    tile.crntType = tileInfo.tileType.Full;
+                    tile.hasWater = true;
+                    tile.crntType = tileInfo.tileType.Water;
 
                 }
                     
             }
-
-            /*if (Physics.Raycast(tile.position, Vector3.up, out hit, 3))
-            {
-                if (hit.collider != null)
-                {
-                    GameObject targetGO = hit.collider.gameObject;
-
-                    if (targetGO.tag == "NV") {
-                        tile.crntType = tileInfo.tileType.Full;
-                        continue;
-                    }
-                    if (targetGO.tag == "water")
-                    {
-                        tile.crntType = tileInfo.tileType.Full;
-                        tile.hasWater = true;
-                        continue;
-                    }
-                    if (targetGO.tag == "nutrient")
-                    {
-                        tile.crntType = tileInfo.tileType.Full;
-                        tile.hasNutrient = true;
-                        continue;
-                    }
-                    if (targetGO.tag == "radioactive")
-                    {
-                        tile.crntType = tileInfo.tileType.Full;
-                        tile.hasRadio = true;
-                        continue;
-                    }
-
-                }*/
             }
-        }
+    }
 
     tileInfo[] findNeighbours(tileInfo crntTile, int radius, bool includeDiagonals, bool includeSelf = false) {
         List<tileInfo> targetTiles = new List<tileInfo>();
@@ -353,10 +332,20 @@ public class tileScript : MonoBehaviour
         }
     }
 
-    public void placeFlower() {
+    public void placeFlower(flowerController.flowerType flowerType) {
+        tileInfo[] neighbours = findNeighbours(selectedTile, 1, true, true);
 
-        Instantiate(flowerBall, selectedTile.position, Quaternion.identity, selectedTile.transform);
+        GameObject FGO = Instantiate(FC.flowerTypes[flowerType], selectedTile.position, Quaternion.identity, selectedTile.transform);
+        mapToFlower.Add(selectedTile, FGO.GetComponent<flowerInfo>());
+        TC.flowers.Add(FGO);
         selectedTile.crntType = tileInfo.tileType.Flower;
+        foreach (tileInfo tile in neighbours) {
+            if (tile.hasWater == true)
+                FGO.GetComponent<flowerInfo>().localWaterAmount++;
+            if (tile.hasNutrient == true)
+                FGO.GetComponent<flowerInfo>().localNutrientAmount++;
+        }
+        selectTile(selectedTile.Xpos, selectedTile.Ypos);
         updateFlowerPlacement();
     }
 

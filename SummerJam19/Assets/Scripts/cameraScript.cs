@@ -43,6 +43,7 @@ public class cameraScript : MonoBehaviour
                     //Debug.LogFormat("Clicked Positions: {0} | {1}", selectX, selectY);
 
                     TS.selectTile(selectX, selectY);
+                    //this.transform.parent.localPosition = new Vector3(worldPosition.x, transform.parent.position.y, worldPosition.z);
                 }
             }
         }
