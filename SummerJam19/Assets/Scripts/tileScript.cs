@@ -26,6 +26,9 @@ public class tileScript : MonoBehaviour
 
     public GameObject selectionPlane;
     public GameObject flowerLocationPlane;
+    public GameObject radioPlane;
+    public Dictionary<tileInfo, GameObject> maptoRadioTiles = new Dictionary<tileInfo, GameObject>();
+
     List<GameObject> flowerLocationPlanes;
 
     public Dictionary<tileInfo, flowerInfo> mapToFlower = new Dictionary<tileInfo, flowerInfo>();
@@ -265,10 +268,15 @@ public class tileScript : MonoBehaviour
 
                     if (hit.collider.gameObject.tag == "nutrient")
                         tile.hasNutrient = true;
-                    
+
 
                     if (hit.collider.gameObject.tag == "radioactive")
+                    {
+                        GameObject radioTile = Instantiate(radioPlane, tile.position + new Vector3(0, 0.1f, 0), Quaternion.identity);
+                        maptoRadioTiles.Add(tile, radioTile);
                         tile.hasRadio = true;
+                    }
+
                 }
 
                 if (hit.distance > 100.1f) {
@@ -333,8 +341,9 @@ public class tileScript : MonoBehaviour
     }
 
     public void placeFlower(flowerController.flowerType flowerType) {
-        tileInfo[] neighbours = findNeighbours(selectedTile, 1, true, true);
 
+        tileInfo[] neighbours = findNeighbours(selectedTile, 1, true, true);
+        List<tileInfo> radioTiles = new List<tileInfo>();
         GameObject FGO = Instantiate(FC.flowerTypes[flowerType], selectedTile.position, Quaternion.identity, selectedTile.transform);
         mapToFlower.Add(selectedTile, FGO.GetComponent<flowerInfo>());
         TC.flowers.Add(FGO);
@@ -344,10 +353,32 @@ public class tileScript : MonoBehaviour
                 FGO.GetComponent<flowerInfo>().localWaterAmount++;
             if (tile.hasNutrient == true)
                 FGO.GetComponent<flowerInfo>().localNutrientAmount++;
+            if (tile.hasRadio)
+                radioTiles.Add(tile);
         }
         selectTile(selectedTile.Xpos, selectedTile.Ypos);
         updateFlowerPlacement();
+
+        if (flowerType == flowerController.flowerType.RadioActive) {
+            StartCoroutine(FadeRadioActive(radioTiles));
+        }
     }
+
+    IEnumerator FadeRadioActive(List<tileInfo> radios) {
+
+        foreach (tileInfo tile in radios)
+        {
+            for (float f = 0f; f <= 100; f += 0.001f)
+            {
+                maptoRadioTiles[tile].GetComponent<Renderer>().material.SetFloat("Vector1_6951F3E2", f/100);
+                
+            }
+
+        }
+
+        yield return null;
+    }
+    
 
     }
 
