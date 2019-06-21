@@ -48,7 +48,7 @@ public class tickerController : MonoBehaviour
     {
         sunText.text = "Sun: " + Mathf.RoundToInt(sunAmount).ToString();
         waterText.text = "Water: " + Mathf.RoundToInt(waterAmount).ToString();
-        nutrientText.text = "Nutirents: " + Mathf.RoundToInt(nutrientAmount).ToString();
+        nutrientText.text = "Nutrients: " + Mathf.RoundToInt(nutrientAmount).ToString();
     }
 
     void tickFlowers() {

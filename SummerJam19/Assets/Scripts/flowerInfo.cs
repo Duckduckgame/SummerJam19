@@ -24,6 +24,10 @@ public class flowerInfo : MonoBehaviour
     public GameObject upgrade02;
     public GameObject upgrade03;
 
+    public float baseSunCost;
+    public float baseWaterCost;
+    public float baseNutrientCost;
+
     public enum upgradeLevel {one, two, three}
 
     public upgradeLevel crntUpgradeLvl = upgradeLevel.one;

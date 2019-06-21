@@ -10,7 +10,12 @@ PrefabInstance:
     - target: {fileID: -927199367670048503, guid: 922579ee809fcd94890fab6aecb4d743,
         type: 3}
       propertyPath: m_Name
-      value: building11
+      value: building11 Variant
+      objectReference: {fileID: 0}
+    - target: {fileID: -927199367670048503, guid: 922579ee809fcd94890fab6aecb4d743,
+        type: 3}
+      propertyPath: m_TagString
+      value: building
       objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: 922579ee809fcd94890fab6aecb4d743,
         type: 3}

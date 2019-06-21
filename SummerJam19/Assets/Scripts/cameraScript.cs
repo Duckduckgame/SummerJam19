@@ -9,6 +9,7 @@ public class cameraScript : MonoBehaviour
     Plane groundPlane;
 
     tileScript TS;
+    UIManager UIM;
 
     int selectX = 0;
     int selectY = 0;
@@ -18,11 +19,14 @@ public class cameraScript : MonoBehaviour
     {
         groundPlane = new Plane(Vector3.up, Vector3.zero);
         TS = GameObject.Find("TileManager").GetComponent<tileScript>();
+        UIM = GameObject.Find("UIManager").GetComponent<UIManager>();
     }
 
     // Update is called once per frame
     void Update()
     {
+        int layerMask = 1 << 9;
+        layerMask = ~layerMask;
         if (!EventSystem.current.IsPointerOverGameObject())
         {
             if (Input.GetMouseButtonDown(0))
@@ -31,6 +35,7 @@ public class cameraScript : MonoBehaviour
 
                 Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
+                RaycastHit hit;
                 float distance;
                 if (groundPlane.Raycast(ray, out distance))
                 {
@@ -44,6 +49,13 @@ public class cameraScript : MonoBehaviour
 
                     TS.selectTile(selectX, selectY);
                     //this.transform.parent.localPosition = new Vector3(worldPosition.x, transform.parent.position.y, worldPosition.z);
+                }
+
+                if (Physics.Raycast(ray, out hit)){
+                    if (hit.point.y > 1f && hit.collider.gameObject.tag == "building") {
+                        TS.selectedBuilding = hit.collider.gameObject;
+                        UIM.crntType = UIManager.UIType.TriggerPlace;
+                    }
                 }
             }
         }
@@ -67,6 +79,8 @@ public class cameraScript : MonoBehaviour
                 TS.placeVine(selectX, selectY);
             }
         }
+
+
     }
 
 }

@@ -21,6 +21,7 @@ public class tileScript : MonoBehaviour
 
     public List<tileInfo> vineTiles;
 
+    public GameObject selectedBuilding;
 
     List<tileInfo> flowerLocations;
 
@@ -388,7 +389,15 @@ public class tileScript : MonoBehaviour
 
         yield return null;
     }
-    
+
+    public void placeTrigger() {
+
+        GameObject newBuilding  = selectedBuilding.GetComponent<buildingManager>().upgradeBuilding;
+        Instantiate(newBuilding, selectedBuilding.transform.position, Quaternion.identity, selectedBuilding.transform);
+        selectedBuilding.GetComponent<Renderer>().enabled = false;
+        selectedBuilding = null;
+        UIM.crntType = UIManager.UIType.None;
+    }
 
     }
 

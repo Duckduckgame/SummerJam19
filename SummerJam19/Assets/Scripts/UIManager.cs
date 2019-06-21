@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class UIManager : MonoBehaviour
 {
@@ -14,10 +15,15 @@ public class UIManager : MonoBehaviour
     public Button placeWaterBut;
     public Button placeNutriBut;
     public Button placeRadioBut;
+    public Button triggerBut;
 
     public Button upgradeBut;
 
+    TextMeshProUGUI costText;
+
     public CanvasGroup flowerPlace;
+
+    public CanvasGroup triggerPlace;
 
     public CanvasGroup flowerUpgrade;
 
@@ -25,7 +31,7 @@ public class UIManager : MonoBehaviour
 
     public CanvasGroup none;
 
-    public enum UIType {None, FlowerPlace, FlowerUpgrade, Pause }
+    public enum UIType {None, FlowerPlace, FlowerUpgrade, TriggerPlace, Pause }
 
     public UIType crntType = UIType.None;
 
@@ -46,19 +52,24 @@ public class UIManager : MonoBehaviour
         none = GameObject.Find("NoneGroup").GetComponent<CanvasGroup>();
         flowerUpgrade = GameObject.Find("FlowerUpgradeGroup").GetComponent<CanvasGroup>();
         pause = GameObject.Find("PauseGroup").GetComponent<CanvasGroup>();
+        triggerPlace = GameObject.Find("triggerPlacementGroup").GetComponent<CanvasGroup>();
 
-
+        costText = GameObject.Find("Cost Text").GetComponent<TextMeshProUGUI>();
 
         UISections = new Dictionary<UIType, CanvasGroup>();
         UISections.Add(UIType.None, none);
         UISections.Add(UIType.FlowerPlace, flowerPlace);
         UISections.Add(UIType.FlowerUpgrade, flowerUpgrade);
         UISections.Add(UIType.Pause, pause);
+        UISections.Add(UIType.TriggerPlace, triggerPlace);
 
         placeSunBut.onClick.AddListener(placeSun);
         placeNutriBut.onClick.AddListener(placeNutrient);
         placeRadioBut.onClick.AddListener(placeRadioactive);
         placeWaterBut.onClick.AddListener(placeWater);
+        triggerBut.onClick.AddListener(placeTrigger);
+
+        placeSunBut.OnPointerEnter(sunOver);
 
         upgradeBut.onClick.AddListener(upgradeFlower);
         
@@ -90,6 +101,10 @@ public class UIManager : MonoBehaviour
     {
         TS.placeFlower(flowerController.flowerType.RadioActive);
     }
+    void placeTrigger()
+    {
+        TS.placeTrigger();
+    }
 
     void upgradeFlower() {
         TS.mapToFlower[TS.selectedTile].GetComponent<flowerInfo>().upgradeFlower();
@@ -118,5 +133,9 @@ public class UIManager : MonoBehaviour
             newCG.alpha = 1-f;
         }
         yield return null;
+    }
+
+    void sunOver() {
+        Debug.Log("sun over: " + this.gameObject.name);
     }
 }
