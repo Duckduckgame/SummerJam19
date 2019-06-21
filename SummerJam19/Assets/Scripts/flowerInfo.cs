@@ -41,6 +41,7 @@ public class flowerInfo : MonoBehaviour
     }
 
     public void upgradeFlower() {
+
         if (crntUpgradeLvl == upgradeLevel.two) {
             crntUpgradeLvl = upgradeLevel.three;
             upgrade03 = Instantiate(upgrade03, transform.position, Quaternion.identity, transform);

@@ -99,14 +99,7 @@ public class UIManager : MonoBehaviour
 
         CanvasGroup oldCG = UISections[oldType];
         CanvasGroup newCG = UISections[crntType];
-        /*if (newCG == flowerPlace || newCG == flowerUpgrade) {
-            RectTransform rect = newCG.GetComponent<RectTransform>();
-            Vector3 screenPos = Input.mousePosition;
-            rect.anchoredPosition = Vector2.zero;
-            rect.anchoredPosition += new Vector2(screenPos.x/2, screenPos.y/2);
-            //Debug.Log(Camera.main.pixelHeight);
-            //Debug.Log(screenPos);
-        }*/
+
 
         StartCoroutine(FadeCG(oldCG, newCG));
 

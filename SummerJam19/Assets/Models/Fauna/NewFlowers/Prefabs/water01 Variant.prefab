@@ -26,7 +26,7 @@ MonoBehaviour:
   crntNutrientPerTick: 0
   upgrade02: {fileID: -927199367670048503, guid: 3e4e72ff3b1808146a385e524ecffc66,
     type: 3}
-  upgrade03: {fileID: -927199367670048503, guid: 474646ff392785041bfd7243049e97d1,
+  upgrade03: {fileID: -927199367670048503, guid: 1cf83ca69c8d4d649b1fec5bb05cb507,
     type: 3}
   crntUpgradeLvl: 0
   localWaterAmount: 0
