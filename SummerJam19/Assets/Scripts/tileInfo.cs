@@ -15,7 +15,8 @@ public class tileInfo : MonoBehaviour
     public bool hasNutrient = false;
     public bool hasRadio = false;
 
-    public enum tileType {Empty, Vine, Flower, Radioactive, Full};
+
+    public enum tileType {Empty, Vine, Flower, Full, Water};
 
     public tileType crntType;
 

@@ -5,25 +5,32 @@ using UnityEngine;
 public class flowerInfo : MonoBehaviour
 {
 
-    public int sunPerTick01;
-    public int waterPerTick01;
-    public int nutrientPerTick01;
+    public float sunPerTick01;
+    public float waterPerTick01;
+    public float nutrientPerTick01;
 
-    public int sunPerTick02;
-    public int waterPerTick02;
-    public int nutrientPerTick02;
+    public float sunPerTick02;
+    public float waterPerTick02;
+    public float nutrientPerTick02;
 
-    public int sunPerTick03;
-    public int waterPerTick03;
-    public int nutrientPerTick03;
+    public float sunPerTick03;
+    public float waterPerTick03;
+    public float nutrientPerTick03;
 
-    public int crntSunPerTick;
-    public int crntWaterPerTick;
-    public int crntNutrientPerTick;
+    public float crntSunPerTick;
+    public float crntWaterPerTick;
+    public float crntNutrientPerTick;
+
+    public GameObject upgrade02;
+    public GameObject upgrade03;
 
     public enum upgradeLevel {one, two, three}
 
     public upgradeLevel crntUpgradeLvl = upgradeLevel.one;
+
+    public int localWaterAmount = 0;
+
+    public int localNutrientAmount = 0;
 
     // Start is called before the first frame update
     void Start()
@@ -33,9 +40,27 @@ public class flowerInfo : MonoBehaviour
         crntWaterPerTick = waterPerTick01;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
+    public void upgradeFlower() {
+        if (crntUpgradeLvl == upgradeLevel.two) {
+            crntUpgradeLvl = upgradeLevel.three;
+            upgrade03 = Instantiate(upgrade03, transform.position, Quaternion.identity, transform);
+            upgrade02.GetComponent<MeshRenderer>().enabled = false;
+
+            crntSunPerTick = sunPerTick03;
+            crntWaterPerTick = waterPerTick03;
+            crntNutrientPerTick = nutrientPerTick03;
+        }
+
+        if (crntUpgradeLvl == upgradeLevel.one) { 
+            crntUpgradeLvl = upgradeLevel.two;
+
+            upgrade02 = Instantiate(upgrade02, transform.position, Quaternion.identity, transform);
+            GetComponent<MeshRenderer>().enabled = false;
+
+            crntSunPerTick = sunPerTick02;
+            crntWaterPerTick = waterPerTick02;
+            crntNutrientPerTick = nutrientPerTick02;
+            }
         
     }
 }

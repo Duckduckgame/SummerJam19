@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sunPerTick01: 0
   waterPerTick01: 0
-  nutrientPerTick01: 0
+  nutrientPerTick01: 0.025
   sunPerTick02: 0
   waterPerTick02: 0
   nutrientPerTick02: 0
@@ -24,7 +24,13 @@ MonoBehaviour:
   crntSunPerTick: 0
   crntWaterPerTick: 0
   crntNutrientPerTick: 0
-  crntLvl: 0
+  upgrade02: {fileID: -927199367670048503, guid: cc4cebdb3d8a2f1429beef7fec670799,
+    type: 3}
+  upgrade03: {fileID: -927199367670048503, guid: 3baeb997dfaa42a4ba60064e1631433d,
+    type: 3}
+  crntUpgradeLvl: 0
+  localWaterAmount: 0
+  localNutrientAmount: 0
 --- !u!1001 &869198610411825382
 PrefabInstance:
   m_ObjectHideFlags: 0
