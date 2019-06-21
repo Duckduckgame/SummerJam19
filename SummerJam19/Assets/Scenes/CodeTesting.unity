@@ -145,6 +145,36 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2967613055900806793, guid: b83c242416eed6246abed8ad2a2b93d2,
+        type: 3}
+      propertyPath: m_Name
+      value: Canvas
+      objectReference: {fileID: 0}
+    - target: {fileID: 6505083241335925885, guid: b83c242416eed6246abed8ad2a2b93d2,
+        type: 3}
+      propertyPath: m_textInfo.characterCount
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6505083241335925885, guid: b83c242416eed6246abed8ad2a2b93d2,
+        type: 3}
+      propertyPath: m_textInfo.spaceCount
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6505083241335925885, guid: b83c242416eed6246abed8ad2a2b93d2,
+        type: 3}
+      propertyPath: m_textInfo.wordCount
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6505083241335925885, guid: b83c242416eed6246abed8ad2a2b93d2,
+        type: 3}
+      propertyPath: m_textInfo.lineCount
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6505083241335925885, guid: b83c242416eed6246abed8ad2a2b93d2,
+        type: 3}
+      propertyPath: m_textInfo.pageCount
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4145917774333598932, guid: b83c242416eed6246abed8ad2a2b93d2,
         type: 3}
       propertyPath: m_RaycastTarget
@@ -179,36 +209,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_IsActive
       value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6505083241335925885, guid: b83c242416eed6246abed8ad2a2b93d2,
-        type: 3}
-      propertyPath: m_textInfo.characterCount
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6505083241335925885, guid: b83c242416eed6246abed8ad2a2b93d2,
-        type: 3}
-      propertyPath: m_textInfo.spaceCount
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6505083241335925885, guid: b83c242416eed6246abed8ad2a2b93d2,
-        type: 3}
-      propertyPath: m_textInfo.wordCount
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6505083241335925885, guid: b83c242416eed6246abed8ad2a2b93d2,
-        type: 3}
-      propertyPath: m_textInfo.lineCount
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6505083241335925885, guid: b83c242416eed6246abed8ad2a2b93d2,
-        type: 3}
-      propertyPath: m_textInfo.pageCount
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2967613055900806793, guid: b83c242416eed6246abed8ad2a2b93d2,
-        type: 3}
-      propertyPath: m_Name
-      value: Canvas
       objectReference: {fileID: 0}
     - target: {fileID: 2967613055900806837, guid: b83c242416eed6246abed8ad2a2b93d2,
         type: 3}
@@ -1548,6 +1548,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 5429408353665920913, guid: 3d93c869aafe2f94e82c331c3b700a71,
+        type: 3}
+      propertyPath: m_Name
+      value: systems
+      objectReference: {fileID: 0}
     - target: {fileID: 5512872520429096429, guid: 3d93c869aafe2f94e82c331c3b700a71,
         type: 3}
       propertyPath: sunFlower
@@ -1582,11 +1587,6 @@ PrefabInstance:
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 39671709}
-    - target: {fileID: 5429408353665920913, guid: 3d93c869aafe2f94e82c331c3b700a71,
-        type: 3}
-      propertyPath: m_Name
-      value: systems
-      objectReference: {fileID: 0}
     - target: {fileID: 2897289107833065504, guid: 3d93c869aafe2f94e82c331c3b700a71,
         type: 3}
       propertyPath: m_LocalPosition.x
