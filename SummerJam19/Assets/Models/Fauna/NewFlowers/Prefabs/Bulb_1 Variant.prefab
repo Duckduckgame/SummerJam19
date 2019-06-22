@@ -28,9 +28,31 @@ MonoBehaviour:
     type: 3}
   upgrade03: {fileID: -927199367670048503, guid: 3baeb997dfaa42a4ba60064e1631433d,
     type: 3}
+  baseSunCost: 0
+  baseWaterCost: 0
+  baseNutrientCost: 0
   crntUpgradeLvl: 0
   localWaterAmount: 0
   localNutrientAmount: 0
+--- !u!95 &7077182882055516157
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9165369025408233967}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 6f163da5665593e499f0654aaafdf52a, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1001 &869198610411825382
 PrefabInstance:
   m_ObjectHideFlags: 0
