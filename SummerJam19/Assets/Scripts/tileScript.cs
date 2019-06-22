@@ -40,7 +40,7 @@ public class tileScript : MonoBehaviour
     flowerController FC;
 
     public GameObject debugBall;
-    
+
 
     // Start is called before the first frame update
     void Start()
@@ -76,7 +76,7 @@ public class tileScript : MonoBehaviour
         if (selectedTile == null) {
             selectionPlane = Instantiate(selectionPlane, new Vector3(x, 0.01f, y), Quaternion.identity, this.transform);
         }
-       
+
         selectionPlane.transform.position = new Vector3(x, 0.01f, y);
         selectedTile = tiles[x, y];
 
@@ -88,12 +88,14 @@ public class tileScript : MonoBehaviour
         }
         if (selectedTile.crntType == tileInfo.tileType.Flower)
         {
-            if (mapToFlower[selectedTile].crntUpgradeLvl != flowerInfo.upgradeLevel.three) { 
-            UIM.crntType = UIManager.UIType.FlowerUpgrade;
+            if (mapToFlower[selectedTile].crntUpgradeLvl != flowerInfo.upgradeLevel.three && mapToFlower[selectedTile].crntFlowerType != flowerController.flowerType.RadioActive) {
+                UIM.crntType = UIManager.UIType.FlowerUpgrade;
             }
+            if (mapToFlower[selectedTile].crntFlowerType == flowerController.flowerType.RadioActive)
+                UIM.crntType = UIManager.UIType.None;
         }
 
-       
+
         Debug.Log("tile type = " + selectedTile.crntType + " at: " + x + "/" + y);
     }
 
@@ -108,7 +110,7 @@ public class tileScript : MonoBehaviour
 
     public void placeVine(int x, int y) {
         tileInfo target = tiles[x, y];
-        
+
         if (checkVineViability(x, y) == true) {
             Debug.Log("spawn triggered");
             List<tileInfo> from = vineDirection(x, y);
@@ -121,7 +123,7 @@ public class tileScript : MonoBehaviour
                 Vector3 pos = target.position;
                 pos.y = Random.Range(-0.02f, 0.05f);
 
-                Instantiate(straightVine[Random.Range(0,straightVine.Length)], pos, Quaternion.Euler(0, vineRot, 0), target.transform);
+                Instantiate(straightVine[Random.Range(0, straightVine.Length)], pos, Quaternion.Euler(0, vineRot, 0), target.transform);
                 target.crntType = tileInfo.tileType.Vine;
                 vineTiles.Add(target);
                 updateFlowerPlacement();
@@ -138,7 +140,7 @@ public class tileScript : MonoBehaviour
         int toY = Mathf.RoundToInt(to.position.z);
 
         //is above
-        if (toY > fromY) {         
+        if (toY > fromY) {
             if (toX == fromX) { return growthDirection.down; }
         }
         //is same level
@@ -180,17 +182,17 @@ public class tileScript : MonoBehaviour
             Debug.Log("Tile not Valid, crntTile is not empty");
             return false;
         }
-            tileInfo[] tilesToCheck = findNeighbours(tiles[x, y], 1, false);
+        tileInfo[] tilesToCheck = findNeighbours(tiles[x, y], 1, false);
 
-            foreach (tileInfo tile in tilesToCheck) {
-                //Instantiate(selectionPlane, tile.position + new Vector3(0, 0.5f, 0), Quaternion.identity);
-            
-                if (tile.crntType == tileInfo.tileType.Vine || tile.crntType == tileInfo.tileType.Flower) {
-                    return true;
-                
-                }
-            
+        foreach (tileInfo tile in tilesToCheck) {
+            //Instantiate(selectionPlane, tile.position + new Vector3(0, 0.5f, 0), Quaternion.identity);
+
+            if (tile.crntType == tileInfo.tileType.Vine || tile.crntType == tileInfo.tileType.Flower) {
+                return true;
+
             }
+
+        }
         Debug.Log("Tile not Valid, no Neighbours found");
         return false;
     }
@@ -213,26 +215,26 @@ public class tileScript : MonoBehaviour
             if (isClean == true) {
                 Debug.Log("clean tile found");
                 flowerPlacementTiles.Add(tile);
-               
-                
+
+
             }
-            
+
         }
         return flowerPlacementTiles;
-        
+
     }
 
     List<tileInfo> vineDirection(int x, int y) {
-        
+
         List<tileInfo> possibleDirections = new List<tileInfo>();
         tileInfo[] foundNeighbours = findNeighbours(tiles[x, y], 1, false);
 
-            foreach (tileInfo tile in foundNeighbours) {
+        foreach (tileInfo tile in foundNeighbours) {
             if (tile.crntType == tileInfo.tileType.Vine || tile.crntType == tileInfo.tileType.Flower) {
                 possibleDirections.Add(tile);
             }
         }
-         
+
         return possibleDirections;
     }
 
@@ -249,8 +251,8 @@ public class tileScript : MonoBehaviour
                 tileEmpty.transform.name = pos.ToString();
                 tiles[x, y] = tileEmpty.GetComponent<tileInfo>();
                 tiles[x, y].position = pos;
-                tiles[x,y].Xpos = Mathf.RoundToInt(pos.x);
-                tiles[x,y].Ypos = Mathf.RoundToInt(pos.z);
+                tiles[x, y].Xpos = Mathf.RoundToInt(pos.x);
+                tiles[x, y].Ypos = Mathf.RoundToInt(pos.z);
 
             }
 
@@ -264,7 +266,7 @@ public class tileScript : MonoBehaviour
 
             RaycastHit hit;
 
-            if (Physics.Raycast(tile.position + new Vector3(0, 100, 0), Vector3.down, out hit)){
+            if (Physics.Raycast(tile.position + new Vector3(0, 100, 0), Vector3.down, out hit)) {
 
                 if (hit.distance < 99.9f)
                 {
@@ -291,9 +293,9 @@ public class tileScript : MonoBehaviour
                     tile.crntType = tileInfo.tileType.Water;
 
                 }
-                    
+
             }
-            }
+        }
     }
 
     tileInfo[] findNeighbours(tileInfo crntTile, int radius, bool includeDiagonals, bool includeSelf = false) {
@@ -303,7 +305,7 @@ public class tileScript : MonoBehaviour
 
         int x = crntTile.Xpos;
         int y = crntTile.Ypos;
-        for (int i = 0; i < radius ; i++) {
+        for (int i = 0; i < radius; i++) {
             int n = i + 1;
             targetTiles.Add(tiles[x + n, y]);
             targetTiles.Add(tiles[x - n, y]);
@@ -318,7 +320,7 @@ public class tileScript : MonoBehaviour
             }
         }
 
-        
+
         return targetTiles.ToArray();
     }
 
@@ -334,8 +336,8 @@ public class tileScript : MonoBehaviour
 
         GameObject[] GOarray = flowerLocationPlanes.ToArray();
 
-        for (int i = 0; i < GOarray.Length; i++) { 
-            Destroy(GOarray[i]);       
+        for (int i = 0; i < GOarray.Length; i++) {
+            Destroy(GOarray[i]);
         }
 
         flowerLocationPlanes.Clear();
@@ -370,47 +372,8 @@ public class tileScript : MonoBehaviour
         selectTile(selectedTile.Xpos, selectedTile.Ypos);
         updateFlowerPlacement();
 
-        if (flowerType == flowerController.flowerType.RadioActive) {
-
-            List<tileInfo> finRadioTiles = new List<tileInfo>();
-            tileInfo[] radioTiles2 = new tileInfo[8];
-            tileInfo[] radioTiles3 = new tileInfo[8];
-
-            foreach (tileInfo tile in radioTiles)
-            {
-                radioTiles2 = findNeighbours(tile, 1, true, false);
-
-                foreach (tileInfo tile2 in radioTiles2)
-                {
-                    radioTiles3 = findNeighbours(tile2, 1, true, false);
-                }
-
-            }
-
-            for(int i = 0; i < radioTiles.Count; i++) {
-                finRadioTiles.Add(radioTiles[i]);
-            }
-            for (int i = 0; i < radioTiles2.Length; i++)
-            {
-                if (!finRadioTiles.Contains(radioTiles2[i])) {
-                    if (radioTiles2[i].hasRadio) {
-                        finRadioTiles.Add(radioTiles2[i]);
-                    }
-                }
-            }
-            for (int i = 0; i < radioTiles3.Length; i++)
-            {
-                if (!finRadioTiles.Contains(radioTiles3[i]))
-                {
-                    if (radioTiles3[i].hasRadio)
-                    {
-                        finRadioTiles.Add(radioTiles3[i]);
-                    }
-                }
-            }
-
-            StartCoroutine(FadeRadioActive(finRadioTiles));
-        }
+        StartCoroutine(FadeRadioActive(radioTiles));
+        
     }
 
     IEnumerator FadeRadioActive(List<tileInfo> radios) {

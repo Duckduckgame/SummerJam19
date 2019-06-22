@@ -136,9 +136,9 @@ MonoBehaviour:
   sunPerTick03: 0
   waterPerTick03: 0
   nutrientPerTick03: 0
-  baseSunCost: 50
-  baseWaterCost: 50
-  baseNutrientCost: 50
+  baseSunCost: 100
+  baseWaterCost: 20
+  baseNutrientCost: 20
   u1SunCost: 0
   u1WaterCost: 0
   u1NutrientCost: 0
@@ -152,6 +152,7 @@ MonoBehaviour:
   crntUpgradeLvl: 0
   localWaterAmount: 0
   localNutrientAmount: 0
+  crntFlowerType: 3
 --- !u!1001 &8293276729321523435
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -219,6 +220,12 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -5178661895559278292, guid: 3b9018d3e894d83458445b8979c850a2,
+        type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 4241385798134229274, guid: 474646ff392785041bfd7243049e97d1,
+        type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3b9018d3e894d83458445b8979c850a2, type: 3}
 --- !u!1 &15285584817181154 stripped

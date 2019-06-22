@@ -50,9 +50,12 @@ public class flowerInfo : MonoBehaviour
 
     public int localNutrientAmount = 0;
 
+    public flowerController.flowerType crntFlowerType;
+
     // Start is called before the first frame update
     void Start()
     {
+        
         crntSunPerTick = sunPerTick01;
         crntNutrientPerTick = nutrientPerTick01;
         crntWaterPerTick = waterPerTick01;
@@ -60,25 +63,27 @@ public class flowerInfo : MonoBehaviour
 
     public void upgradeFlower() {
 
-        if (crntUpgradeLvl == upgradeLevel.two) {
-            crntUpgradeLvl = upgradeLevel.three;
-            upgrade03 = Instantiate(upgrade03, transform.position, transform.rotation, transform);
-            upgrade02.GetComponent<MeshRenderer>().enabled = false;
+            if (crntUpgradeLvl == upgradeLevel.two)
+            {
+                crntUpgradeLvl = upgradeLevel.three;
+                upgrade03 = Instantiate(upgrade03, transform.position, transform.rotation, transform);
+                upgrade02.GetComponent<MeshRenderer>().enabled = false;
 
-            crntSunPerTick = sunPerTick03;
-            crntWaterPerTick = waterPerTick03;
-            crntNutrientPerTick = nutrientPerTick03;
-        }
+                crntSunPerTick = sunPerTick03;
+                crntWaterPerTick = waterPerTick03;
+                crntNutrientPerTick = nutrientPerTick03;
+            }
 
-        if (crntUpgradeLvl == upgradeLevel.one) { 
-            crntUpgradeLvl = upgradeLevel.two;
+            if (crntUpgradeLvl == upgradeLevel.one)
+            {
+                crntUpgradeLvl = upgradeLevel.two;
 
-            upgrade02 = Instantiate(upgrade02, transform.position, transform.rotation, transform);
-            GetComponent<MeshRenderer>().enabled = false;
+                upgrade02 = Instantiate(upgrade02, transform.position, transform.rotation, transform);
+                GetComponent<MeshRenderer>().enabled = false;
 
-            crntSunPerTick = sunPerTick02;
-            crntWaterPerTick = waterPerTick02;
-            crntNutrientPerTick = nutrientPerTick02;
+                crntSunPerTick = sunPerTick02;
+                crntWaterPerTick = waterPerTick02;
+                crntNutrientPerTick = nutrientPerTick02;
             }
         
     }

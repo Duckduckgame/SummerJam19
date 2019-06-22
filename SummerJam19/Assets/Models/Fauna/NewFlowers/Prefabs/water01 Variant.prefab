@@ -152,6 +152,7 @@ MonoBehaviour:
   crntUpgradeLvl: 0
   localWaterAmount: 0
   localNutrientAmount: 0
+  crntFlowerType: 1
 --- !u!1001 &5020655853889154543
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -219,6 +220,12 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -5178661895559278292, guid: 952e1d80bd55f5342ac96aa9631ee133,
+        type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: -5541498454363534094, guid: 952e1d80bd55f5342ac96aa9631ee133,
+        type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 952e1d80bd55f5342ac96aa9631ee133, type: 3}
 --- !u!1 &3930832067658724582 stripped
