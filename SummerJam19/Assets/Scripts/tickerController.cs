@@ -15,7 +15,7 @@ public class tickerController : MonoBehaviour
     public TextMeshProUGUI waterPerTickText;
     public TextMeshProUGUI nutrientPerTickText;
 
-    public float sunAmount = 1;
+    public float sunAmount = 50;
     public float waterAmount = 0;
     public float nutrientAmount = 0;
 
@@ -25,13 +25,15 @@ public class tickerController : MonoBehaviour
 
     public int sunFlower01Amount = 1;
 
-    public int tickerCooldown = 10;
+    public int tickerCooldown = 1;
 
     public List<GameObject> flowers = new List<GameObject>();
 
     // Start is called before the first frame update
     void Start()
     {
+        sunAmount = 150;
+
         InvokeRepeating("tickFlowers", 0, tickerCooldown);
 
         sunText = GameObject.Find("sunText").GetComponent<TextMeshProUGUI>();
@@ -70,7 +72,7 @@ public class tickerController : MonoBehaviour
         waterAmount += waterTickAmount;
         nutrientAmount += nutrientTickAmount;
 
-        sunPerTickText.text = "Per Tick: " + sunTickAmount.ToString("F2");
+        sunPerTickText.text = "Per Minute: " + (sunTickAmount*60).ToString("F2");
         nutrientPerTickText.text = "Per Tick: " + nutrientTickAmount.ToString("F2");
         waterPerTickText.text = "Per Tick: " + waterTickAmount.ToString("F2");
     }

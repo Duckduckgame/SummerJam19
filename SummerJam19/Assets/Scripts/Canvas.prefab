@@ -243,6 +243,7 @@ GameObject:
   - component: {fileID: 4978463896601168382}
   - component: {fileID: 7904510003966406382}
   - component: {fileID: 31055290866132885}
+  - component: {fileID: 6588796289062664261}
   m_Layer: 5
   m_Name: waterBut
   m_TagString: Untagged
@@ -351,6 +352,19 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
+--- !u!114 &6588796289062664261
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 327564898198676729}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 666cb5fe72409944aac7b4c1ac8bc3c0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  flower: {fileID: 3930832067658724582, guid: ab8e7a461cdf32540bc3e6eebdec2429, type: 3}
 --- !u!1 &540446534708749443
 GameObject:
   m_ObjectHideFlags: 0
@@ -484,6 +498,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 666cb5fe72409944aac7b4c1ac8bc3c0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  flower: {fileID: 2788215649700875628, guid: a3b22b223db49db45b8bcc3b0f6f6fb8, type: 3}
 --- !u!1 &984396632369076972
 GameObject:
   m_ObjectHideFlags: 0
@@ -496,6 +511,7 @@ GameObject:
   - component: {fileID: 7381930084456407060}
   - component: {fileID: 4111477834192534497}
   - component: {fileID: 7636638431179742362}
+  - component: {fileID: 4794117602692739645}
   m_Layer: 5
   m_Name: radioBut
   m_TagString: Untagged
@@ -604,6 +620,19 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
+--- !u!114 &4794117602692739645
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 984396632369076972}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 666cb5fe72409944aac7b4c1ac8bc3c0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  flower: {fileID: 15285584817181154, guid: df3b2a7a3b9a1d24f977e708d9edc1ef, type: 3}
 --- !u!1 &1277273680358758801
 GameObject:
   m_ObjectHideFlags: 0
@@ -1986,6 +2015,7 @@ GameObject:
   - component: {fileID: 9071355344504214077}
   - component: {fileID: 7771590299277669595}
   - component: {fileID: 8844151967998315019}
+  - component: {fileID: 4543307511686180961}
   m_Layer: 5
   m_Name: nutriBut
   m_TagString: Untagged
@@ -2094,6 +2124,19 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
+--- !u!114 &4543307511686180961
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6935203712398621087}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 666cb5fe72409944aac7b4c1ac8bc3c0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  flower: {fileID: 9165369025408233967, guid: 30375ae0add59af458189e4779c78a7d, type: 3}
 --- !u!1 &7391777170067610498
 GameObject:
   m_ObjectHideFlags: 0

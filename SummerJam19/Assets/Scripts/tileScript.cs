@@ -123,6 +123,7 @@ public class tileScript : MonoBehaviour
                 target.crntType = tileInfo.tileType.Vine;
                 vineTiles.Add(target);
                 updateFlowerPlacement();
+                chargeForVine();
             }
         }
     }
@@ -344,6 +345,7 @@ public class tileScript : MonoBehaviour
     }
 
     public void placeFlower(flowerController.flowerType flowerType) {
+        chargeForFlower(FC.flowerTypes[flowerType].GetComponent<flowerInfo>());
 
         tileInfo[] neighbours = findNeighbours(selectedTile, 1, true, true);
         List<tileInfo> radioTiles = new List<tileInfo>();
@@ -398,6 +400,17 @@ public class tileScript : MonoBehaviour
         selectedBuilding.GetComponent<Renderer>().enabled = false;
         selectedBuilding = null;
         UIM.crntType = UIManager.UIType.None;
+    }
+
+    public void chargeForFlower(flowerInfo flower) {
+
+        TC.sunAmount -= flower.baseSunCost;
+        TC.nutrientAmount -= flower.baseNutrientCost;
+        TC.waterAmount -= flower.baseWaterCost;
+    }
+
+    public void chargeForVine() {
+        TC.sunAmount--;
     }
 
     }

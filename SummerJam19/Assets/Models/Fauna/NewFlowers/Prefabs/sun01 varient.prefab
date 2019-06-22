@@ -31,7 +31,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ae4d43b1dbb0a2a44bf0c5c6ad5eae04, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sunPerTick01: 0.1
+  sunPerTick01: 0.8334
   waterPerTick01: 0
   nutrientPerTick01: 0
   sunPerTick02: 5
@@ -47,7 +47,7 @@ MonoBehaviour:
     type: 3}
   upgrade03: {fileID: -927199367670048503, guid: debf74e6bd1a8b64a8f3843e8b1da821,
     type: 3}
-  baseSunCost: 0
+  baseSunCost: 50
   baseWaterCost: 0
   baseNutrientCost: 0
   crntUpgradeLvl: 0
