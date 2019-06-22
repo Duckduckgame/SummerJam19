@@ -74,6 +74,15 @@ public class camMovement : MonoBehaviour
             cam.orthographic = false;
             tilePlainRend.enabled = false;
         }
+        if (Input.GetKeyDown(KeyCode.LeftShift))
+        {
+            Vector3 tempPos = cam.transform.position;
+            if (cam.transform.position.y < 50) 
+                tempPos.y = 51;
+            if (cam.transform.position.y > 50)
+                tempPos.y = 20;
+            cam.transform.position = tempPos;
+        }
 
 
     }

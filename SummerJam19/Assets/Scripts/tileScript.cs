@@ -279,7 +279,7 @@ public class tileScript : MonoBehaviour
 
                     if (hit.collider.gameObject.tag == "radioactive")
                     {
-                        GameObject radioTile = Instantiate(radioPlane, tile.position + new Vector3(0, 0.1f, 0), Quaternion.identity);
+                        GameObject radioTile = Instantiate(radioPlane, tile.position + new Vector3(0, 0.1f, 0), Quaternion.Euler(0,Random.Range(1,5)*45,0));
                         tile.crntType = tileInfo.tileType.RadioActive;
                         maptoRadioTiles.Add(tile, radioTile);
                         tile.hasRadio = true;

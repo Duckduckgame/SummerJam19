@@ -79,7 +79,7 @@ public class tickerController : MonoBehaviour
         nutrientAmount += nutrientTickAmount;
 
         sunPerTickText.text = "Per Minute: " + (sunTickAmount*60).ToString("F2");
-        nutrientPerTickText.text = "Per Tick: " + (nutrientTickAmount*60).ToString("F2");
-        waterPerTickText.text = "Per Tick: " + (waterTickAmount*60).ToString("F2");
+        nutrientPerTickText.text = "Per Minute: " + (nutrientTickAmount*60).ToString("F2");
+        waterPerTickText.text = "Per Minute: " + (waterTickAmount*60).ToString("F2");
     }
 }
