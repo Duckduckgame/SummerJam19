@@ -350,7 +350,7 @@ public class tileScript : MonoBehaviour
         tileInfo[] neighbours = findNeighbours(selectedTile, 1, true, true);
         List<tileInfo> radioTiles = new List<tileInfo>();
 
-        GameObject FGO = Instantiate(FC.flowerTypes[flowerType], selectedTile.position, Quaternion.identity, selectedTile.transform);
+        GameObject FGO = Instantiate(FC.flowerTypes[flowerType], selectedTile.position, Quaternion.Euler(0, Random.Range(1, 5) * 45, 0), selectedTile.transform);
         mapToFlower.Add(selectedTile, FGO.GetComponent<flowerInfo>());
         TC.flowers.Add(FGO);
 
@@ -396,7 +396,7 @@ public class tileScript : MonoBehaviour
     public void placeTrigger() {
 
         GameObject newBuilding  = selectedBuilding.GetComponent<buildingManager>().upgradeBuilding;
-        Instantiate(newBuilding, selectedBuilding.transform.position, Quaternion.identity, selectedBuilding.transform);
+        Instantiate(newBuilding, selectedBuilding.transform.position, selectedBuilding.transform.rotation, selectedBuilding.transform);
         selectedBuilding.GetComponent<Renderer>().enabled = false;
         selectedBuilding = null;
         UIM.crntType = UIManager.UIType.None;

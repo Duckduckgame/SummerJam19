@@ -51,6 +51,12 @@ public class tickerController : MonoBehaviour
         sunText.text = "Sun: " + Mathf.RoundToInt(sunAmount).ToString();
         waterText.text = "Water: " + Mathf.RoundToInt(waterAmount).ToString();
         nutrientText.text = "Nutrients: " + Mathf.RoundToInt(nutrientAmount).ToString();
+
+        if (Input.GetKeyDown(KeyCode.RightControl)) {
+            sunAmount += 1000;
+            nutrientAmount += 1000;
+            waterAmount += 1000;
+        }
     }
 
     void tickFlowers() {

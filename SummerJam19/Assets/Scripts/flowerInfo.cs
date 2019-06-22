@@ -48,7 +48,7 @@ public class flowerInfo : MonoBehaviour
 
         if (crntUpgradeLvl == upgradeLevel.two) {
             crntUpgradeLvl = upgradeLevel.three;
-            upgrade03 = Instantiate(upgrade03, transform.position, Quaternion.identity, transform);
+            upgrade03 = Instantiate(upgrade03, transform.position, transform.rotation, transform);
             upgrade02.GetComponent<MeshRenderer>().enabled = false;
 
             crntSunPerTick = sunPerTick03;
@@ -59,7 +59,7 @@ public class flowerInfo : MonoBehaviour
         if (crntUpgradeLvl == upgradeLevel.one) { 
             crntUpgradeLvl = upgradeLevel.two;
 
-            upgrade02 = Instantiate(upgrade02, transform.position, Quaternion.identity, transform);
+            upgrade02 = Instantiate(upgrade02, transform.position, transform.rotation, transform);
             GetComponent<MeshRenderer>().enabled = false;
 
             crntSunPerTick = sunPerTick02;
