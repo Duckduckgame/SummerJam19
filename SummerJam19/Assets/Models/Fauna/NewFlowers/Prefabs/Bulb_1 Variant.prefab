@@ -10,7 +10,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: f75e0cc07dc369649a10bd2225446e4b, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 0747af0c994caa94b8989a97135ef737, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
@@ -136,16 +136,19 @@ MonoBehaviour:
   sunPerTick03: 0
   waterPerTick03: 0
   nutrientPerTick03: 0
-  crntSunPerTick: 0
-  crntWaterPerTick: 0
-  crntNutrientPerTick: 0
+  baseSunCost: 50
+  baseWaterCost: 20
+  baseNutrientCost: 0
+  u1SunCost: 0
+  u1WaterCost: 0
+  u1NutrientCost: 0
+  u2SunCost: 0
+  u2WaterCost: 0
+  u2NutrientCost: 0
   upgrade02: {fileID: -927199367670048503, guid: cc4cebdb3d8a2f1429beef7fec670799,
     type: 3}
   upgrade03: {fileID: -927199367670048503, guid: 3baeb997dfaa42a4ba60064e1631433d,
     type: 3}
-  baseSunCost: 50
-  baseWaterCost: 20
-  baseNutrientCost: 0
   crntUpgradeLvl: 0
   localWaterAmount: 0
   localNutrientAmount: 0

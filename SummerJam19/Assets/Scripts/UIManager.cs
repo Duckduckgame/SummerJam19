@@ -135,5 +135,9 @@ public class UIManager : MonoBehaviour
         yield return null;
     }
 
+    void checkPrices() {
+        
+    }
+
 
 }

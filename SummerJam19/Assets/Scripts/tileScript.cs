@@ -379,6 +379,7 @@ public class tileScript : MonoBehaviour
             foreach (tileInfo tile in radioTiles)
             {
                 radioTiles2 = findNeighbours(tile, 1, true, false);
+
                 foreach (tileInfo tile2 in radioTiles2)
                 {
                     radioTiles3 = findNeighbours(tile2, 1, true, false);
@@ -391,7 +392,7 @@ public class tileScript : MonoBehaviour
             }
             for (int i = 0; i < radioTiles2.Length; i++)
             {
-                if (!radioTiles.Contains(radioTiles2[i])) {
+                if (!finRadioTiles.Contains(radioTiles2[i])) {
                     if (radioTiles2[i].hasRadio) {
                         finRadioTiles.Add(radioTiles2[i]);
                     }
@@ -399,7 +400,7 @@ public class tileScript : MonoBehaviour
             }
             for (int i = 0; i < radioTiles3.Length; i++)
             {
-                if (!radioTiles.Contains(radioTiles3[i]))
+                if (!finRadioTiles.Contains(radioTiles3[i]))
                 {
                     if (radioTiles3[i].hasRadio)
                     {
