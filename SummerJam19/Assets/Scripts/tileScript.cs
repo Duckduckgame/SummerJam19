@@ -371,12 +371,44 @@ public class tileScript : MonoBehaviour
         updateFlowerPlacement();
 
         if (flowerType == flowerController.flowerType.RadioActive) {
+
+            List<tileInfo> finRadioTiles = new List<tileInfo>();
+            tileInfo[] radioTiles2 = new tileInfo[8];
+            tileInfo[] radioTiles3 = new tileInfo[8];
+
             foreach (tileInfo tile in radioTiles)
             {
-                tile.hasRadio = false;
-                tile.crntType = tileInfo.tileType.Empty;
+                radioTiles2 = findNeighbours(tile, 1, true, false);
+                foreach (tileInfo tile2 in radioTiles2)
+                {
+                    radioTiles3 = findNeighbours(tile2, 1, true, false);
+                }
+
             }
-            StartCoroutine(FadeRadioActive(radioTiles));
+
+            for(int i = 0; i < radioTiles.Count; i++) {
+                finRadioTiles.Add(radioTiles[i]);
+            }
+            for (int i = 0; i < radioTiles2.Length; i++)
+            {
+                if (!radioTiles.Contains(radioTiles2[i])) {
+                    if (radioTiles2[i].hasRadio) {
+                        finRadioTiles.Add(radioTiles2[i]);
+                    }
+                }
+            }
+            for (int i = 0; i < radioTiles3.Length; i++)
+            {
+                if (!radioTiles.Contains(radioTiles3[i]))
+                {
+                    if (radioTiles3[i].hasRadio)
+                    {
+                        finRadioTiles.Add(radioTiles3[i]);
+                    }
+                }
+            }
+
+            StartCoroutine(FadeRadioActive(finRadioTiles));
         }
     }
 
@@ -384,11 +416,12 @@ public class tileScript : MonoBehaviour
 
         foreach (tileInfo tile in radios)
         {
-            for (float f = 0f; f <= 100; f += 0.001f)
-            {
-                maptoRadioTiles[tile].GetComponent<Renderer>().material.SetFloat("Vector1_6951F3E2", f/100);
+
+            tile.hasRadio = false;
+            tile.crntType = tileInfo.tileType.Empty;
+            maptoRadioTiles[tile].GetComponent<Renderer>().material.SetFloat("Vector1_6951F3E2", 1);
                 
-            }
+            
 
         }
 
