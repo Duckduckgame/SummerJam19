@@ -69,7 +69,7 @@ public class UIManager : MonoBehaviour
         placeWaterBut.onClick.AddListener(placeWater);
         triggerBut.onClick.AddListener(placeTrigger);
 
-        placeSunBut.OnPointerEnter(sunOver);
+
 
         upgradeBut.onClick.AddListener(upgradeFlower);
         
@@ -135,7 +135,5 @@ public class UIManager : MonoBehaviour
         yield return null;
     }
 
-    void sunOver() {
-        Debug.Log("sun over: " + this.gameObject.name);
-    }
+
 }

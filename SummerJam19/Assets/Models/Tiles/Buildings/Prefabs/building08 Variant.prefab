@@ -14,6 +14,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   upgradeBuilding: {fileID: 1333276654343833242, guid: 9dd7fc1d1c63cc54da37fa4c5b3d538e,
     type: 3}
+--- !u!64 &1961560685007075042
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7207485396268046572}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Convex: 0
+  m_CookingOptions: 14
+  m_Mesh: {fileID: -678330901820120141, guid: 426e8aac9907f044b845f87c8059fa2e, type: 3}
 --- !u!1001 &1668527387640332773
 PrefabInstance:
   m_ObjectHideFlags: 0

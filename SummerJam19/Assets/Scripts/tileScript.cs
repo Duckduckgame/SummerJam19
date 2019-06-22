@@ -56,6 +56,7 @@ public class tileScript : MonoBehaviour
 
         tiles[40, 46].crntType = tileInfo.tileType.Flower;
         GameObject flowerGO1 = Instantiate(flowerBall, tiles[40, 46].position, Quaternion.identity);
+        mapToFlower.Add(tiles[40, 46], flowerGO1.GetComponent<flowerInfo>());
         TC.flowers.Add(flowerGO1);
     }
 
@@ -281,7 +282,7 @@ public class tileScript : MonoBehaviour
 
                 }
 
-                if (hit.distance > 100.1f) {
+                if (hit.collider.gameObject.tag == "water") {
 
                     tile.hasWater = true;
                     tile.crntType = tileInfo.tileType.Water;
