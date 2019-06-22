@@ -5,28 +5,42 @@ using UnityEngine;
 public class flowerInfo : MonoBehaviour
 {
 
+    [Header("Per Tick Amounts 01")]
     public float sunPerTick01;
     public float waterPerTick01;
     public float nutrientPerTick01;
-
+    [Header("Per Tick Amounts 02")]
     public float sunPerTick02;
     public float waterPerTick02;
     public float nutrientPerTick02;
-
+    [Header("Per Tick Amounts 03")]
     public float sunPerTick03;
     public float waterPerTick03;
     public float nutrientPerTick03;
 
+    [System.NonSerialized]
     public float crntSunPerTick;
+    [System.NonSerialized]
     public float crntWaterPerTick;
+    [System.NonSerialized]
     public float crntNutrientPerTick;
 
-    public GameObject upgrade02;
-    public GameObject upgrade03;
-
+    [Header("Base cost")]
     public float baseSunCost;
     public float baseWaterCost;
     public float baseNutrientCost;
+    [Header("upgrade 01 cost")]
+    public float u1SunCost;
+    public float u1WaterCost;
+    public float u1NutrientCost;
+    [Header("upgrade 02 cost")]
+    public float u2SunCost;
+    public float u2WaterCost;
+    public float u2NutrientCost;
+
+    [Header("upgrade models")]
+    public GameObject upgrade02;
+    public GameObject upgrade03;
 
     public enum upgradeLevel {one, two, three}
 

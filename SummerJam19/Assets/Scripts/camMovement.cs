@@ -19,9 +19,7 @@ public class camMovement : MonoBehaviour
 
     Transform target;
 
-    Quaternion targetRot;
-    Quaternion oldRot;
-
+    Renderer tilePlainRend;
     // Start is called before the first frame update
     void Start()
     {
@@ -29,12 +27,13 @@ public class camMovement : MonoBehaviour
         target = GameObject.Find("camTarget").GetComponent<Transform>();
         Debug.Log(target.name);
         cam = Camera.main;
+        tilePlainRend = GameObject.Find("tilePlain").GetComponent<Renderer>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        oldRot = transform.rotation;
+
 
         float horiInput = Input.GetAxis("Horizontal");
         float vertInput = Input.GetAxis("Vertical");
@@ -49,6 +48,10 @@ public class camMovement : MonoBehaviour
         //{
             cam.GetComponent<Rigidbody>().AddForce(scrollPos * 20, ForceMode.Impulse);
             cam.GetComponent<Rigidbody>().velocity = Vector3.zero;
+
+        if (cam.transform.position.y < 0.35f) {
+            cam.transform.position = new Vector3(cam.transform.position.x, 0.36f, cam.transform.position.z);
+        }
        // }
 
         target.transform.Translate(targetPos * Time.deltaTime * interpolation);
@@ -57,17 +60,7 @@ public class camMovement : MonoBehaviour
             target.transform.eulerAngles += new Vector3(0, Input.GetAxisRaw("Mouse X"), 0);
         }
 
-        if (Input.GetKeyDown(KeyCode.Q)) {
-
-            //target.transform.Rotate(new Vector3(0, 90, 0));
-            targetRot = Quaternion.Euler(0, transform.rotation.y + 90, 0);
-        }
-        if (Input.GetKeyDown(KeyCode.E))
-        {
-
-            //target.transform.Rotate(new Vector3(0, -90, 0));
-            targetRot = Quaternion.Euler(0, transform.rotation.y - 90, 0);
-        }
+        
 
         //Quaternion.Lerp(oldRot, targetRot, Time.deltaTime * camRotSpeed);
         transform.LookAt(target.transform, Vector3.up);
@@ -75,9 +68,11 @@ public class camMovement : MonoBehaviour
         if (transform.position.y > 50) {
             cam.orthographic = true;
             cam.orthographicSize = 15;
+            tilePlainRend.enabled = true;
         }
         if (transform.position.y < 50) {
             cam.orthographic = false;
+            tilePlainRend.enabled = false;
         }
 
 

@@ -23,6 +23,8 @@ public class tileScript : MonoBehaviour
 
     public GameObject selectedBuilding;
 
+    public AudioClip[] SFX;
+
     List<tileInfo> flowerLocations;
 
     public GameObject selectionPlane;
@@ -54,9 +56,9 @@ public class tileScript : MonoBehaviour
 
         updateTiles();
 
-        tiles[40, 46].crntType = tileInfo.tileType.Flower;
-        GameObject flowerGO1 = Instantiate(flowerBall, tiles[40, 46].position, Quaternion.identity);
-        mapToFlower.Add(tiles[40, 46], flowerGO1.GetComponent<flowerInfo>());
+        tiles[100, 95].crntType = tileInfo.tileType.Flower;
+        GameObject flowerGO1 = Instantiate(flowerBall, tiles[100, 95].position, Quaternion.identity);
+        mapToFlower.Add(tiles[100, 95], flowerGO1.GetComponent<flowerInfo>());
         TC.flowers.Add(flowerGO1);
     }
 
