@@ -412,6 +412,31 @@ public class tileScript : MonoBehaviour
         TC.sunAmount--;
     }
 
+    public void chargeForUpgrade(flowerInfo flower) {
+
+
+        if (flower.crntUpgradeLvl == flowerInfo.upgradeLevel.two)
+        {
+            TC.sunAmount -= flower.u2SunCost;
+            TC.waterAmount -= flower.u2WaterCost;
+            TC.nutrientAmount -= flower.u2NutrientCost;
+            return;
+        }
+
+        if (flower.crntUpgradeLvl == flowerInfo.upgradeLevel.one) {
+            TC.sunAmount -= flower.u1SunCost;
+            TC.waterAmount -= flower.u1WaterCost;
+            TC.nutrientAmount -= flower.u1NutrientCost;
+        }
+
+    }
+
+    public void chargeForTrigger() {
+        TC.sunAmount -= 500;
+        TC.waterAmount -= 500;
+        TC.nutrientAmount -= 500;
+    }
+
     }
 
 

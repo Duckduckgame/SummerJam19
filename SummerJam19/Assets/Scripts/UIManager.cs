@@ -103,11 +103,15 @@ public class UIManager : MonoBehaviour
     }
     void placeTrigger()
     {
+        TS.chargeForTrigger();
         TS.placeTrigger();
     }
 
     void upgradeFlower() {
         TS.mapToFlower[TS.selectedTile].GetComponent<flowerInfo>().upgradeFlower();
+        TS.chargeForUpgrade(TS.mapToFlower[TS.selectedTile].GetComponent<flowerInfo>());
+        /*TS.selectedTile = null;
+        crntType = UIType.None;*/
     }
 
     public void switchUIType() {
@@ -135,9 +139,6 @@ public class UIManager : MonoBehaviour
         yield return null;
     }
 
-    void checkPrices() {
-        
-    }
 
 
 }

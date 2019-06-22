@@ -1723,7 +1723,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Camera
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1583141553}
     - target: {fileID: 2967613055900806836, guid: b83c242416eed6246abed8ad2a2b93d2,
         type: 3}
       propertyPath: m_PixelPerfect
@@ -1742,7 +1742,7 @@ PrefabInstance:
     - target: {fileID: 2967613055900806836, guid: b83c242416eed6246abed8ad2a2b93d2,
         type: 3}
       propertyPath: m_PlaneDistance
-      value: -17.24
+      value: 2.36
       objectReference: {fileID: 0}
     - target: {fileID: 7995364315900353918, guid: b83c242416eed6246abed8ad2a2b93d2,
         type: 3}
@@ -7498,7 +7498,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1438083852}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -1, z: 0}
+  m_LocalPosition: {x: 0, y: -2.5, z: 0}
   m_LocalScale: {x: 204.69, y: 1, z: 218}
   m_Children: []
   m_Father: {fileID: 0}
@@ -8639,7 +8639,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 4a0821d1a6e7e2f448814f0dfebcb7ec, type: 3}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 1

@@ -72,6 +72,7 @@ public class flowerInfo : MonoBehaviour
                 crntSunPerTick = sunPerTick03;
                 crntWaterPerTick = waterPerTick03;
                 crntNutrientPerTick = nutrientPerTick03;
+                return;
             }
 
             if (crntUpgradeLvl == upgradeLevel.one)
