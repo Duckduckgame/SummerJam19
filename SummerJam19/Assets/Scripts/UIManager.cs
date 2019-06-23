@@ -19,6 +19,10 @@ public class UIManager : MonoBehaviour
 
     public Button upgradeBut;
 
+    public Button startBut;
+    public Button continueBut;
+    public Button quitBut;
+
     TextMeshProUGUI costText;
 
     public CanvasGroup flowerPlace;
@@ -28,12 +32,15 @@ public class UIManager : MonoBehaviour
     public CanvasGroup flowerUpgrade;
 
     public CanvasGroup pause;
+    Vector3 pausePos;
+
+    public CanvasGroup start;
 
     public CanvasGroup none;
 
-    public enum UIType {None, FlowerPlace, FlowerUpgrade, TriggerPlace, Pause }
+    public enum UIType {None, FlowerPlace, FlowerUpgrade, TriggerPlace, Pause , Start}
 
-    public UIType crntType = UIType.None;
+    public UIType crntType = UIType.Start;
 
     UIType oldType = UIType.None;
 
@@ -44,8 +51,9 @@ public class UIManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
-        
+        pausePos = pause.transform.position;
+        pause.transform.position = new Vector3(5000, 5000, 5000);
+        crntType = UIType.Start;
         TS = GameObject.Find("TileManager").GetComponent<tileScript>();
 
         flowerPlace = GameObject.Find("FlowerPlacementGroup").GetComponent<CanvasGroup>();
@@ -62,6 +70,7 @@ public class UIManager : MonoBehaviour
         UISections.Add(UIType.FlowerUpgrade, flowerUpgrade);
         UISections.Add(UIType.Pause, pause);
         UISections.Add(UIType.TriggerPlace, triggerPlace);
+        UISections.Add(UIType.Start, start);
 
         placeSunBut.onClick.AddListener(placeSun);
         placeNutriBut.onClick.AddListener(placeNutrient);
@@ -69,9 +78,11 @@ public class UIManager : MonoBehaviour
         placeWaterBut.onClick.AddListener(placeWater);
         triggerBut.onClick.AddListener(placeTrigger);
 
-
+        startBut.onClick.AddListener(startGame);
 
         upgradeBut.onClick.AddListener(upgradeFlower);
+        continueBut.onClick.AddListener(continueGame);
+        quitBut.onClick.AddListener(quitGame);
         
     }
 
@@ -84,6 +95,28 @@ public class UIManager : MonoBehaviour
             oldType = crntType;
             
         }
+
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            pause.transform.position = pausePos;
+            crntType = UIType.Pause;
+            //if (crntType == UIType.Pause)
+               // crntType = UIType.None;
+
+        }
+    }
+
+    void startGame() {
+        crntType = UIType.None;
+        start.transform.position = new Vector3(5000, 5000, 5000);
+        Debug.Log("button clicked!");
+    }
+    void continueGame() {
+        pause.transform.position = new Vector3(5000, 5000, 5000);
+        crntType = UIType.None;
+    }
+    void quitGame() {
+        Application.Quit();
     }
 
     void placeSun() {
@@ -110,8 +143,10 @@ public class UIManager : MonoBehaviour
     void upgradeFlower() {
         TS.mapToFlower[TS.selectedTile].GetComponent<flowerInfo>().upgradeFlower();
         TS.chargeForUpgrade(TS.mapToFlower[TS.selectedTile].GetComponent<flowerInfo>());
-        /*TS.selectedTile = null;
-        crntType = UIType.None;*/
+        if (TS.mapToFlower[TS.selectedTile].GetComponent<flowerInfo>().crntUpgradeLvl == flowerInfo.upgradeLevel.three){
+            TS.selectedTile = null;
+            crntType = UIType.None;
+        }
     }
 
     public void switchUIType() {

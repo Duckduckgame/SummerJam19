@@ -11,6 +11,8 @@ public class tileScript : MonoBehaviour
     public GameObject tileGO;
     public tileInfo[,] tiles;
 
+    public GameObject nutrientTile;
+
     public tileInfo selectedTile;
 
     public enum growthDirection { up, upRight, right, downRight, down, downLeft, left, upLeft }
@@ -110,24 +112,27 @@ public class tileScript : MonoBehaviour
 
     public void placeVine(int x, int y) {
         tileInfo target = tiles[x, y];
-
-        if (checkVineViability(x, y) == true) {
+        if (TC.sunAmount >= 1)
+        {
+            if (checkVineViability(x, y) == true) {
             Debug.Log("spawn triggered");
-            List<tileInfo> from = vineDirection(x, y);
+            
+                List<tileInfo> from = vineDirection(x, y);
 
-            foreach (tileInfo TI in from)
-            {
-                growthDirection chosenDir = findGrowthDirection(TI, target);
+                foreach (tileInfo TI in from)
+                {
+                    growthDirection chosenDir = findGrowthDirection(TI, target);
 
-                int vineRot = vineRotation(chosenDir);
-                Vector3 pos = target.position;
-                pos.y = Random.Range(-0.02f, 0.05f);
+                    int vineRot = vineRotation(chosenDir);
+                    Vector3 pos = target.position;
+                    pos.y = Random.Range(-0.02f, 0.05f);
 
-                Instantiate(straightVine[Random.Range(0, straightVine.Length)], pos, Quaternion.Euler(0, vineRot, 0), target.transform);
-                target.crntType = tileInfo.tileType.Vine;
-                vineTiles.Add(target);
-                updateFlowerPlacement();
-                chargeForVine();
+                    Instantiate(straightVine[Random.Range(0, straightVine.Length)], pos, Quaternion.Euler(0, vineRot, 0), target.transform);
+                    target.crntType = tileInfo.tileType.Vine;
+                    vineTiles.Add(target);
+                    updateFlowerPlacement();
+                    chargeForVine();
+                }
             }
         }
     }
@@ -274,7 +279,10 @@ public class tileScript : MonoBehaviour
                         tile.crntType = tileInfo.tileType.Full;
 
                     if (hit.collider.gameObject.tag == "nutrient")
+                    {
                         tile.hasNutrient = true;
+                        Instantiate(nutrientTile, tile.position, Quaternion.Euler(0, Random.Range(1, 5) * 45, 0));
+                    }
 
 
                     if (hit.collider.gameObject.tag == "radioactive")
@@ -343,7 +351,7 @@ public class tileScript : MonoBehaviour
         flowerLocationPlanes.Clear();
 
         foreach (tileInfo tile in flowerLocations) {
-            GameObject flowerPlaneGO = Instantiate(flowerLocationPlane, tile.position + new Vector3(0, 0.2f, 0), Quaternion.identity);
+            GameObject flowerPlaneGO = Instantiate(flowerLocationPlane, tile.position + new Vector3(0, 0.2f, 0), Quaternion.Euler(0, Random.Range(1, 5) * 45, 0));
             flowerLocationPlanes.Add(flowerPlaneGO);
         }
     }
